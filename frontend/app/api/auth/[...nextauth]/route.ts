@@ -24,10 +24,21 @@ const nextAuthOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: '/login'
-  }
+    signIn: '/login',
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      user && (token.user = user)
+      return token // this token will go to inside of session
+    },
+    async session({ session, token }) {
+      // look now i receive the token of jwt
+      session.user = token.user as any
+      return session
+    },
+  },
 }
 
 const handler = NextAuth(nextAuthOptions)
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST, nextAuthOptions }
