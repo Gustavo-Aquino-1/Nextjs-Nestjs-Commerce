@@ -2,6 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import UserDto from 'src/dto/user.dto';
 import prisma from 'src/prisma';
+import 'dotenv/config';
+
+const {
+  JWT_SECRET_ACESS_TOKEN,
+  JWT_SECRET_REFRESH_TOKEN,
+  JWT_EXPIRES_ACESS_TOKEN,
+  JWT_EXPIRES_REFRESH_TOKEN,
+} = process.env;
 
 @Injectable()
 export class AuthService {
@@ -22,12 +30,12 @@ export class AuthService {
       id: savedUser.id,
       name: savedUser.name,
       acess_token: await this.jwt.signAsync(savedUser, {
-        secret: '36fgd5f32fdf32hg9',
-        expiresIn: '1h',
+        secret: JWT_SECRET_ACESS_TOKEN,
+        expiresIn: JWT_EXPIRES_ACESS_TOKEN,
       }),
       refresh_token: await this.jwt.signAsync(savedUser, {
-        secret: '36fgd5f32fdf32hg8',
-        expiresIn: '1h',
+        secret: JWT_SECRET_REFRESH_TOKEN,
+        expiresIn: JWT_EXPIRES_REFRESH_TOKEN,
       }),
     };
   }

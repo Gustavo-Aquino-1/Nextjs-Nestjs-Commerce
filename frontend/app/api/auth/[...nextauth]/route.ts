@@ -1,6 +1,10 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import api from '@/app/api'
+import jwt from 'jsonwebtoken'
+import 'dotenv/config'
+
+const { NEXTAUTH_SECRET } = process.env
 
 const nextAuthOptions: NextAuthOptions = {
   providers: [
