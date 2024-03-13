@@ -9,13 +9,15 @@ import 'dotenv/config';
 // import { Observable } from 'rxjs';
 
 @Injectable()
-export default class IsAdmin implements CanActivate {
+export default class IsAuthorized implements CanActivate {
+  constructor(private role: string = 'user') {} // if needs verify if is an admin for an example
+
   canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest();
     const token = req.headers.authorization;
     try {
       const decoded = verify(token, process.env.JWT_SECRET_ACESS_TOKEN) as any;
-      if (decoded.role != 'admin') throw new Error();
+      if (decoded.role != this.role) throw new Error();
       return true;
     } catch (error) {
       throw new UnauthorizedException({ message: 'invalid token' });

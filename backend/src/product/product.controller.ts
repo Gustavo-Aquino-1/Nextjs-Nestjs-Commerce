@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import ProductService from './product.service';
 import ProductDto from 'src/dto/product.dto';
-import IsAdmin from 'src/guards/IsAdmin';
+import IsAuthorized from 'src/guards/isAuthorized';
 
 @Controller('/product')
 export default class ProductController {
@@ -21,7 +21,7 @@ export default class ProductController {
   }
 
   @Post()
-  @UseGuards(IsAdmin)
+  @UseGuards(new IsAuthorized('admin'))
   async create(@Body() data: ProductDto) {
     return this.service.create(data);
   }
