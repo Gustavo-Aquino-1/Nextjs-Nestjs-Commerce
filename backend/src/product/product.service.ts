@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import ProductDto from 'src/dto/product.dto';
 import prisma from 'src/prisma';
 
 @Injectable()
@@ -18,5 +19,12 @@ export default class ProductService {
       },
       take: 10,
     });
+  }
+
+  async create(data: ProductDto) {
+    // return await prisma.product.create({
+    //   data: data as any,
+    // });
+    return data;
   }
 }

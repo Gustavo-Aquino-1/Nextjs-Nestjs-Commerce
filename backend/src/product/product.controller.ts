@@ -1,6 +1,8 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import ProductService from './product.service';
+import ProductDto from 'src/dto/product.dto';
+import IsAdmin from 'src/guards/IsAdmin';
 
 @Controller('/product')
 export default class ProductController {
@@ -16,5 +18,11 @@ export default class ProductController {
         (!fields.includes(e) && delete filters[e]),
     );
     return await this.service.get(filters);
+  }
+
+  @Post()
+  @UseGuards(IsAdmin)
+  async create(@Body() data: ProductDto) {
+    return this.service.create(data);
   }
 }
