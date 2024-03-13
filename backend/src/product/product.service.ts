@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import ProductDto from 'src/dto/product.dto';
 import prisma from 'src/prisma';
 
@@ -22,9 +22,19 @@ export default class ProductService {
   }
 
   async create(data: ProductDto) {
-    // return await prisma.product.create({
-    //   data: data as any,
-    // });
-    return data;
+    return await prisma.product.create({
+      data: data as any,
+    });
+  }
+
+  async update(id: number, data: Partial<ProductDto>) {
+    try {
+      return await prisma.product.update({
+        data,
+        where: { id },
+      });
+    } catch (error) {
+      throw new BadRequestException({ message: 'invalid data' });
+    }
   }
 }
