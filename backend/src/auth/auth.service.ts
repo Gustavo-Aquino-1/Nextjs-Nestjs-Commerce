@@ -29,6 +29,7 @@ export class AuthService {
     return {
       id: savedUser.id,
       name: savedUser.name,
+      role: savedUser.role,
       acess_token: await this.jwt.signAsync(savedUser, {
         secret: JWT_SECRET_ACESS_TOKEN,
         expiresIn: JWT_EXPIRES_ACESS_TOKEN,

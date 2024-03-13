@@ -6,6 +6,7 @@ declare module 'next-auth' {
       // type of session.user (in nextAuthOptions)
       id: number
       name: string
+      role: string
       acess_token: string
       refresh_token: string
     }

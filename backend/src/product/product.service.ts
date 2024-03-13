@@ -16,7 +16,7 @@ export default class ProductService {
         },
         type,
       },
-      take: 5,
+      take: 10,
     });
   }
 }
