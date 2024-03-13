@@ -12,4 +12,41 @@ model User {
   name String
   email String
   password String
+  orders Order[]
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  price Float
+  name String
+  description String
+  img String
+  type String @default("Adult")
+  orderProduct OrderProduct[]
+  sizeId Int
+  size Size @relation(fields:[sizeId], references: [id])
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields:[userId], references: [id])
+  total Float
+  orderProduct OrderProduct[]
+}
+
+model OrderProduct {
+  orderId Int
+  order Order @relation(fields:[orderId], references:[id])
+  productId Int
+  product Product @relation(fields:[productId], references:[id])
+  quantity Int
+  @@id([orderId, productId])
+}
+
+model Size {
+  id Int @id @default(autoincrement())
+  type String // kid / adult
+  sizes String // type => "37 38 39"
+  products Product[]
 }
