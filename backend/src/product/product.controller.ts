@@ -45,7 +45,7 @@ export default class ProductController {
     if (Object.keys(data).length == 0) {
       return res
         .status(400)
-        .json({ message: 'Pass some data to update a product' });
+        .json({ message: 'Pass some valid data to update a product' });
     }
     return res
       .status(200)
