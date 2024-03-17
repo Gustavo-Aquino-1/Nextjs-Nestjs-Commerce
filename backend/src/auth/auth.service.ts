@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import UserDto from 'src/dto/user.dto';
 import prisma from 'src/prisma';
 import 'dotenv/config';
+import CreateUserDto from 'src/dto/create-user.dto';
 
 const {
   JWT_SECRET_ACESS_TOKEN,
@@ -39,5 +40,11 @@ export class AuthService {
         expiresIn: JWT_EXPIRES_REFRESH_TOKEN,
       }),
     };
+  }
+
+  async create(user: CreateUserDto) {
+    return await prisma.user.create({
+      data: { ...user } as any,
+    });
   }
 }
