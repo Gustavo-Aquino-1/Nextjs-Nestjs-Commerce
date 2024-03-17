@@ -37,4 +37,10 @@ export default class ProductService {
       throw new BadRequestException({ message: 'invalid data' });
     }
   }
+
+  async remove(id: number) {
+    return prisma.product.delete({
+      where: { id },
+    });
+  }
 }

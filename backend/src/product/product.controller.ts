@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Post,
   Put,
@@ -50,5 +51,12 @@ export default class ProductController {
     return res
       .status(200)
       .json(await this.service.update(+req.params.id, data));
+  }
+
+  @Delete('/:id')
+  @UseGuards(new IsAuthorized('admin'))
+  async remove(@Req() req: Request, @Res() res: Response) {
+    await this.service.remove(+req.params.id);
+    return res.status(204).json(null);
   }
 }
