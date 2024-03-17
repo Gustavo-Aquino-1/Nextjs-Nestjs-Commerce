@@ -14,6 +14,7 @@ model User {
   password String
   role String @default("user")
   orders Order[]
+  feedbacks Feedback[]
 }
 
 model Product {
@@ -23,6 +24,7 @@ model Product {
   description String
   img String
   type String @default("Adult")
+  line String @default("Summer")
   orderProduct OrderProduct[]
   sizeId Int
   size Size @relation(fields:[sizeId], references: [id])
@@ -33,6 +35,9 @@ model Order {
   userId Int
   user User @relation(fields:[userId], references: [id])
   total Float
+  cep String
+  number Int
+  paymentType String
   orderProduct OrderProduct[]
 }
 
@@ -41,8 +46,9 @@ model OrderProduct {
   order Order @relation(fields:[orderId], references:[id])
   productId Int
   product Product @relation(fields:[productId], references:[id])
+  size String
   quantity Int
-  @@id([orderId, productId])
+  @@id([orderId, productId, size])
 }
 
 model Size {
@@ -50,4 +56,12 @@ model Size {
   type String // kid / adult
   sizes String // type => "37 38 39"
   products Product[]
+}
+
+model Feedback {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields:[userId], references:[id])
+  rate Int
+  description String
 }

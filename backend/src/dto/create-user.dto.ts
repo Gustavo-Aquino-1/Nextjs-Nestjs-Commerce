@@ -16,5 +16,6 @@ export default class CreateUserDto {
   private name: string;
 
   @IsString()
+  @Length(2)
   private role: string;
 }
