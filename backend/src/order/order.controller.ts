@@ -4,7 +4,7 @@ import IsAuthorized from 'src/guards/isAuthorized';
 import CreateOrderDto from 'src/dto/create-order.dto';
 import 'dotenv/config';
 import { Request } from 'express';
-import { verify } from 'jsonwebtoken';
+import decodeJwt from 'src/utils/decodeJwt';
 
 @Controller('/order')
 export default class OrderController {
@@ -13,10 +13,6 @@ export default class OrderController {
   @Post()
   @UseGuards(new IsAuthorized())
   async create(@Body() order: CreateOrderDto, @Req() req: Request) {
-    const user = verify(
-      req.header('Authorization'),
-      process.env.JWT_SECRET_ACESS_TOKEN,
-    );
-    return await this.service.create(user as any, order);
+    return await this.service.create(decodeJwt(req) as any, order);
   }
 }

@@ -28,6 +28,7 @@ model Product {
   orderProduct OrderProduct[]
   sizeId Int
   size Size @relation(fields:[sizeId], references: [id])
+  feedbacks Feedback[]
 }
 
 model Order {
@@ -43,7 +44,7 @@ model Order {
 
 model OrderProduct {
   orderId Int
-  order Order @relation(fields:[orderId], references:[id])
+  order Order @relation(fields:[orderId], references:[id], onDelete: Cascade)
   productId Int
   product Product @relation(fields:[productId], references:[id])
   size String
@@ -59,9 +60,11 @@ model Size {
 }
 
 model Feedback {
-  id Int @id @default(autoincrement())
   userId Int
   user User @relation(fields:[userId], references:[id])
+  productId Int
+  product Product @relation(fields: [productId], references: [id])
   rate Int
   description String
+  @@id([userId, productId])
 }
