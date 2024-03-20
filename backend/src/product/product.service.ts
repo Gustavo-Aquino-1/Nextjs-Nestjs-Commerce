@@ -5,7 +5,7 @@ import prisma from 'src/prisma';
 @Injectable()
 export default class ProductService {
   async get(filters) {
-    const { name, minPrice, maxPrice, type } = filters;
+    const { name, minPrice, maxPrice, type, line } = filters;
     return await prisma.product.findMany({
       where: {
         name: {
@@ -16,6 +16,7 @@ export default class ProductService {
           lte: +maxPrice || 500000,
         },
         type,
+        line,
       },
       take: 10,
     });

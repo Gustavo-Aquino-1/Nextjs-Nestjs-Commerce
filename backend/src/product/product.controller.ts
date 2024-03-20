@@ -21,7 +21,7 @@ export default class ProductController {
   @Get()
   async get(@Req() req: Request) {
     const filters = req.query;
-    const fields = ['name', 'minPrice', 'maxPrice', 'type'];
+    const fields = ['name', 'minPrice', 'maxPrice', 'type', 'line'];
     Object.keys(filters).map(
       (e) =>
         String(filters[e]).trim() == '' ||
