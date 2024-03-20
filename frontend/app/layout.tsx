@@ -1,7 +1,7 @@
 import NextAuthSessionProvider from '@/providers/sessionProvider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-// import "./globals.css";
+import './globals.css' // have to import to tailwind works because it does the import in this file
 
 const inter = Inter({ subsets: ['latin'] })
 
