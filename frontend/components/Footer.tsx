@@ -12,7 +12,7 @@ const cedarville = Cedarville_Cursive({
 
 function Footer() {
   return (
-    <div className='bg-black text-white p-10'>
+    <div className='bg-black text-white p-10 max-md:p-5 max-md:bg-red-500'>
       <h1 className={`self-start ${cedarville.className} text-2xl`}>Gax</h1>
       <div className='flex justify-between max-w-[80%] m-auto'>
         <ul className='flex flex-col'>
