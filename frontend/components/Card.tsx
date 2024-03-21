@@ -11,7 +11,7 @@ function Card({ img, alt, className }: CardProps) {
     <div>
       <Image
         className={
-          'w-[320px] h-[550px] hover:cursor-pointer border-2 ' + className
+          'w-[320px] h-[550px] hover:cursor-pointer border-2 hover:border-4 hover:border-dashed ' + className
         } // remind the space
         src={img}
         alt={alt}

@@ -12,7 +12,7 @@ import f1 from '@/public/f1.png'
 export default async function Home() {
   return (
     <div className='flex flex-col gap-10 pb-20'>
-      <div className='bg-red-500 p-4 h-[23rem] flex flex-col justify-center items-center'>
+      <div className='bg-red-600 p-4 h-[23rem] flex flex-col justify-center items-center'>
         <p className='text-4xl text-white font-extralight'>20%</p>
         <p className='text-xl font-semibold'>Every T-shirt in the GAX</p>
       </div>
@@ -23,9 +23,17 @@ export default async function Home() {
       <div className='bg-black p-28'>
         <div className='flex justify-between w-[80%] m-auto'>
           <Card img={soccer} alt='Soccer' />
-          <Card img={basketball} alt='Basktball' className="w-[320px] h-[550px] scale-110" />
+          <Card
+            img={basketball}
+            alt='Basktball'
+            className='w-[320px] h-[550px] scale-110'
+          />
           <Card img={f1} alt='f1' />
         </div>
+      </div>
+      <div>
+        <Products line='Casual' />
+        <Products line='Summer' />
       </div>
     </div>
   )
