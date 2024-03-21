@@ -1,10 +1,13 @@
 import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route'
 import ButtonLogout from '@/components/ButtonLogout'
-import Product from '@/components/Product.tes'
+import Card from '@/components/Card'
 import Products from '@/components/Products'
 import { getServerSession } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import Image from 'next/image'
+import soccer from '@/public/Soccer.png'
+import basketball from '@/public/basketball.jpg'
+import f1 from '@/public/f1.png'
 
 export default async function Home() {
   return (
@@ -13,8 +16,17 @@ export default async function Home() {
         <p className='text-4xl text-white font-extralight'>20%</p>
         <p className='text-xl font-semibold'>Every T-shirt in the GAX</p>
       </div>
-      <Products line='Summer' />
-      <Products line='Casual' />
+      <div>
+        <Products line='Summer' />
+        <Products line='Casual' />
+      </div>
+      <div className='bg-black p-28'>
+        <div className='flex justify-between w-[80%] m-auto'>
+          <Card img={soccer} alt='Soccer' />
+          <Card img={basketball} alt='Basktball' className="w-[320px] h-[550px] scale-110" />
+          <Card img={f1} alt='f1' />
+        </div>
+      </div>
     </div>
   )
   // return (
