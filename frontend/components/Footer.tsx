@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { FaInstagram } from 'react-icons/fa6'
+import { AiFillInstagram } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FaLinkedin } from 'react-icons/fa'
 import { Cedarville_Cursive } from '@next/font/google'
@@ -12,9 +12,9 @@ const cedarville = Cedarville_Cursive({
 
 function Footer() {
   return (
-    <div className='bg-black text-white p-10 max-md:p-5 max-md:bg-red-500'>
+    <div className='bg-black text-white p-10 max-md:p-5'>
       <h1 className={`self-start ${cedarville.className} text-2xl`}>Gax</h1>
-      <div className='flex justify-between max-w-[80%] m-auto'>
+      <div className='flex justify-between max-w-[80%] m-auto max-md:flex-wrap max-md:gap-2 max-md:justify-center'>
         <ul className='flex flex-col'>
           <li className='font-bold text-lg pb-2'>
             <Link href='/home'>About us</Link>
@@ -27,9 +27,6 @@ function Footer() {
           </li>
           <li className='hover:underline'>
             <Link href='/home'>Work with us</Link>
-          </li>
-          <li className='hover:underline'>
-            <Link href='/home'>Discover who we are!</Link>
           </li>
         </ul>
 
@@ -52,9 +49,9 @@ function Footer() {
           <li className='font-bold text-lg pb-2 text-center'>
             <Link href='/home'>We are in</Link>
           </li>
-          <li className='flex gap-5'>
+          <li className='flex gap-5 max-md:flex-wrap'>
             <Link className='hover:scale-105' href='/home'>
-              <FaInstagram size={30} />
+              <AiFillInstagram size={30} />
             </Link>
             <Link className='hover:scale-105' href='/home'>
               <FaFacebook size={30} />

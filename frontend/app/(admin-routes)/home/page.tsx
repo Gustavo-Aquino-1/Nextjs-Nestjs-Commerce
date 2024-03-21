@@ -21,7 +21,7 @@ export default async function Home() {
         <Products line='Casual' />
       </div>
       <div className='bg-black p-28'>
-        <div className='flex justify-between w-[80%] m-auto'>
+        <div className='flex justify-between w-[100%] m-auto'>
           <Card img={soccer} alt='Soccer' />
           <Card
             img={basketball}
