@@ -21,7 +21,7 @@ export default class ProductController {
   @Get()
   async get(@Req() req: Request) {
     const filters = req.query;
-    const fields = ['name', 'minPrice', 'maxPrice', 'type', 'line'];
+    const fields = ['name', 'minPrice', 'maxPrice', 'type', 'line', 'take'];
     Object.keys(filters).map(
       (e) =>
         String(filters[e]).trim() == '' ||
@@ -58,5 +58,10 @@ export default class ProductController {
   async remove(@Req() req: Request, @Res() res: Response) {
     await this.service.remove(+req.params.id);
     return res.status(204).json(null);
+  }
+
+  @Get('/:id')
+  async getById(@Req() req: Request) {
+    return await this.service.getById(+req.params.id);
   }
 }

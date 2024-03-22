@@ -14,11 +14,5 @@ export default async function LoginLayout({ children }: LoginLayoutProps) {
   if (!session) {
     return redirect('/')
   }
-  return (
-    <>
-      <Header />
-      {children}
-      <Footer />
-    </>
-  )
+  return <>{children}</>
 }

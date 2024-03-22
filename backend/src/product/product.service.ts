@@ -1,11 +1,15 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import ProductDto from 'src/dto/product.dto';
 import prisma from 'src/prisma';
 
 @Injectable()
 export default class ProductService {
   async get(filters) {
-    const { name, minPrice, maxPrice, type, line } = filters;
+    const { name, minPrice, maxPrice, type, line, take } = filters;
     return await prisma.product.findMany({
       where: {
         name: {
@@ -18,7 +22,7 @@ export default class ProductService {
         type,
         line,
       },
-      take: 10,
+      take: +take,
     });
   }
 
@@ -40,8 +44,29 @@ export default class ProductService {
   }
 
   async remove(id: number) {
-    return prisma.product.delete({
+    return await prisma.product.delete({
       where: { id },
     });
+  }
+
+  async getById(id: number) {
+    const product = await prisma.product.findUnique({
+      where: { id },
+      include: {
+        size: true,
+        // feedbacks: true, much data
+      },
+    });
+    if (!product) throw new NotFoundException({ message: 'product not found' });
+    const rate = await prisma.feedback.aggregate({
+      where: { productId: id },
+      _avg: {
+        rate: true,
+      },
+      _count: {
+        rate: true,
+      },
+    });
+    return { ...product, rate };
   }
 }

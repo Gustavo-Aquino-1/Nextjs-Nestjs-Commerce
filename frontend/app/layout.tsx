@@ -2,6 +2,8 @@ import NextAuthSessionProvider from '@/providers/sessionProvider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css' // have to import to tailwind works because it does the import in this file
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +20,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
+        <Header />
+        <div className='mt-[65px]'>
+          <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
+        </div>
+        <Footer />
       </body>
     </html>
   )

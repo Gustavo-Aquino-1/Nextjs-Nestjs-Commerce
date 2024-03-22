@@ -8,19 +8,32 @@ import Image from 'next/image'
 import soccer from '@/public/Soccer.png'
 import basketball from '@/public/basketball.jpg'
 import f1 from '@/public/f1.png'
+import bgDiscount from '@/public/bg-discount.jpg'
 
 export default async function Home() {
   return (
     <div className='flex flex-col gap-10 pb-20'>
-      <div className='bg-red-600 p-4 h-[23rem] flex flex-col justify-center items-center'>
-        <p className='text-4xl text-white font-extralight'>20%</p>
-        <p className='text-xl font-semibold'>Every T-shirt in the GAX</p>
+      <div
+        style={{
+          background: 'linear-gradient(to top,#ECECEC,#87CE9A)',
+        }}
+        className='bg-black p-4 h-[20rem] flex flex-col justify-center items-center'
+      >
+        <p className='text-4xl font-extralight text-emerald-700'>20%</p>
+        <p className='text-xl font-semibold text-emerald-700'>
+          Every T-shirt in the GAX
+        </p>
       </div>
       <div>
-        <Products line='Summer' />
-        <Products line='Casual' />
+        <Products quantity={3} title='Summer line' line='Summer' />
+        <Products quantity={3} title='Casual line' line='Casual' />
       </div>
-      <div className='bg-black p-28'>
+      <div
+        style={{
+          background: 'linear-gradient(to top, gray, lightgray)',
+        }}
+        className='bg-black p-28'
+      >
         <div className='flex justify-between w-[100%] m-auto'>
           <Card img={soccer} alt='Soccer' />
           <Card
@@ -32,8 +45,8 @@ export default async function Home() {
         </div>
       </div>
       <div>
-        <Products line='Casual' />
-        <Products line='Summer' />
+        <Products quantity={3} title='Casual line' line='Casual' />
+        <Products quantity={3} title='Summer line' line='Summer' />
       </div>
     </div>
   )

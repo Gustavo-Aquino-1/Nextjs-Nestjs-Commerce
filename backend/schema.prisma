@@ -20,8 +20,8 @@ model User {
 model Product {
   id Int @id @default(autoincrement())
   price Float
-  name String
-  description String
+  name String 
+  description String @db.VarChar(1000)
   img String
   type String @default("Adult")
   line String @default("Summer")

@@ -6,7 +6,7 @@ import { IoCartOutline } from 'react-icons/io5'
 
 export default async function Header() {
   return (
-    <header className='flex justify-between w-full p-[1rem] fixed bg-white border-gray-300 border-b-2 z-50'>
+    <header className='flex justify-between w-full p-[1rem] fixed top-0 bg-white border-gray-300 border-b-2 z-50'>
       <p className='text-pretty text-xl'>GAX</p>
       <div className='flex gap-4'>
         <CiSearch size={'2rem'} />
