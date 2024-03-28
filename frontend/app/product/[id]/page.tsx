@@ -1,47 +1,29 @@
 import api from '@/app/api'
+import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route'
+import Favorite from '@/components/Favorite'
+import ProductOptions from '@/components/ProductOptions'
 import Products from '@/components/Products'
+import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import React from 'react'
+import { CiHeart } from 'react-icons/ci'
 
 interface ProductProps {
   params: { id: number }
 }
 
 async function Product({ params: { id } }: ProductProps) {
+  const session = await getServerSession(nextAuthOptions)
+  const token = session?.user.acess_token
   const { data: product } = (await api.get('/product/' + id)) as any
-  console.log(product, id)
+  // console.log(product, id)
   return (
     <div className='pl-10 flex flex-col gap-10 pt-10 pb-10 max-md:p-1 max-md:pb-10 max-md:pt-5 '>
-      <p className='text-2xl font-bold text-center'>{product.name}</p>
-      <div className='flex min-w-[90%] max-w-[90%] max-md:max-w-[100%] justify-center gap-20 items-center m-auto flex-wrap max-md:justify-center'>
-        <Image
-          src={product?.img}
-          alt={product?.name}
-          width={600}
-          height={600}
-        />
-        <div className='flex flex-col gap-6'>
-          <div>
-            <p className='font-bold text-xl mb-4'>Available sizes:</p>
-            <div className='flex gap-2'>
-              {product.size.sizes.split(' ').map((e: string) => (
-                <button
-                  className='p-3 border-2 border-solid border-gray hover:border-black active:bg-black active:text-white'
-                  key={e}
-                >
-                  {e}
-                </button>
-              ))}
-            </div>
-          </div>
-          <button className='bg-emerald-950 text-white p-3 rounded-md'>
-            Add to Cart
-          </button>
-          <button className='bg-black text-white p-3 rounded-md'>
-            Buy Now
-          </button>
-        </div>
+      <div className='flex justify-center gap-5'>
+        <p className='text-2xl font-bold text-center'>{product.name}</p>
+        <Favorite token={token} productId={id} />
       </div>
+      <ProductOptions product={product} />
       <div className='pl-4 flex justify-center'>
         <p className='font-bold'>
           {!product.rate._avg.rate
@@ -106,7 +88,11 @@ async function Product({ params: { id } }: ProductProps) {
         purchase; you're investing in peace of mind. So go ahead, shop with
         confidence, and experience the epitome of secure shopping.
       </div>
-      <Products quantity={3} productId={product.id} title='More Products' line={product.line} />
+      <Products
+        filters={{ line: product.line, take: 3 }}
+        productId={product.id}
+        title='More Products'
+      />
     </div>
   )
 }

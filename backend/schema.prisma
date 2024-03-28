@@ -15,6 +15,7 @@ model User {
   role String @default("user")
   orders Order[]
   feedbacks Feedback[]
+  favorites Favorite[]
 }
 
 model Product {
@@ -29,6 +30,7 @@ model Product {
   sizeId Int
   size Size @relation(fields:[sizeId], references: [id])
   feedbacks Feedback[]
+  favorites Favorite[]
 }
 
 model Order {
@@ -67,4 +69,12 @@ model Feedback {
   rate Int
   description String
   @@id([userId, productId])
+}
+
+model Favorite {
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  productId Int
+  product Product @relation(fields: [productId], references: [id])
+  @@id(name: "favoriteId", [userId, productId])
 }

@@ -15,7 +15,7 @@ export default async function Home() {
     <div className='flex flex-col gap-10 pb-20'>
       <div
         style={{
-          background: 'linear-gradient(to top,#ECECEC,#87CE9A)',
+          background: 'linear-gradient(to top,white,#87CE9A)',
         }}
         className='bg-black p-4 h-[20rem] flex flex-col justify-center items-center'
       >
@@ -25,8 +25,8 @@ export default async function Home() {
         </p>
       </div>
       <div>
-        <Products quantity={3} title='Summer line' line='Summer' />
-        <Products quantity={3} title='Casual line' line='Casual' />
+        <Products filters={{ line: 'Summer', take: 3 }} title='Summer line' />
+        <Products filters={{ line: 'Casual', take: 3 }} title='Casual line' />
       </div>
       <div
         style={{
@@ -45,8 +45,8 @@ export default async function Home() {
         </div>
       </div>
       <div>
-        <Products quantity={3} title='Casual line' line='Casual' />
-        <Products quantity={3} title='Summer line' line='Summer' />
+        <Products filters={{ line: 'Casual', take: 3 }} title='Casual line' />
+        <Products filters={{ line: 'Summer', take: 3 }} title='Summer line' />
       </div>
     </div>
   )

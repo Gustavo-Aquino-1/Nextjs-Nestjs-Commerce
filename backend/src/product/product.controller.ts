@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Patch,
   Post,
   Put,
   Req,
@@ -13,6 +14,8 @@ import { Request, Response } from 'express';
 import ProductService from './product.service';
 import ProductDto from 'src/dto/product.dto';
 import IsAuthorized from 'src/guards/isAuthorized';
+import decodeJwt from 'src/utils/decodeJwt';
+import { JwtPayload } from 'jsonwebtoken';
 
 @Controller('/product')
 export default class ProductController {
@@ -63,5 +66,18 @@ export default class ProductController {
   @Get('/:id')
   async getById(@Req() req: Request) {
     return await this.service.getById(+req.params.id);
+  }
+
+  @UseGuards(new IsAuthorized())
+  @Patch('/favorite/:id')
+  async favorite(@Req() req: Request, @Res() res: Response) {
+    const user: any = await decodeJwt(req);
+    const { check } = req.query;
+    const message = await this.service.favorite(
+      +req.params.id,
+      user?.id,
+      check as any,
+    );
+    return res.status(200).json({ message });
   }
 }

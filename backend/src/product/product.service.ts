@@ -10,7 +10,7 @@ import prisma from 'src/prisma';
 export default class ProductService {
   async get(filters) {
     const { name, minPrice, maxPrice, type, line, take } = filters;
-    return await prisma.product.findMany({
+    const filter = {
       where: {
         name: {
           contains: name,
@@ -19,11 +19,12 @@ export default class ProductService {
           gte: +minPrice || 0,
           lte: +maxPrice || 500000,
         },
-        type,
-        line,
       },
-      take: +take,
-    });
+      take: +take || 5,
+    } as any;
+    if (type) filter.where.type = type;
+    if (line) filter.where.line = line;
+    return await prisma.product.findMany(filter);
   }
 
   async create(data: ProductDto) {
@@ -68,5 +69,29 @@ export default class ProductService {
       },
     });
     return { ...product, rate };
+  }
+
+  async favorite(productId: number, userId: number, check: string) {
+    const filter = {
+      where: {
+        favoriteId: {
+          userId,
+          productId,
+        },
+      } as any,
+    };
+    const isFavorite = await prisma.favorite.findUnique(filter);
+    if (isFavorite) {
+      if (check == 'yes') {
+        return 'yes';
+      }
+      await prisma.favorite.delete(filter);
+      return 'not';
+    }
+
+    if (check == 'yes') return 'not';
+
+    await prisma.favorite.create({ data: { productId, userId } });
+    return 'yes';
   }
 }
