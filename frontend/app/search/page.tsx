@@ -8,6 +8,8 @@ import { CiHeart } from 'react-icons/ci'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Context } from '@/context/Provider'
+import { IoSearchOutline } from 'react-icons/io5'
+import DropDown from '@/components/DropDown'
 
 const openSans = Open_Sans({
   subsets: ['latin'],
@@ -23,8 +25,12 @@ function Search() {
   const [moreOptions, setMoreOptions] = useState(false)
   const [search, setSearch] = useState(false)
   const [filteredData, setFilteredData] = useState([])
+  const [focus, setFocus] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
 
-  const filterProducts = async () => {
+  const filterProducts = async (e) => {
+    setSubmitted(true)
+    e.preventDefault()
     if ((minPrice || 0) > (!maxPrice ? 500000 : maxPrice))
       return alert('The maxPrice should be greater than minPrice')
     try {
@@ -102,20 +108,40 @@ function Search() {
           )}
         </div>
       </div>
-      <div className='flex gap-5'>
-        <input
-          className='border-2 border-b-2 border-gray-300 w-[85%] py-5 px-1 text-2xl outline-none max-md:w-[70%] max-md:py-3'
-          type='text'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <button
-          disabled={name.length < 3}
-          onClick={filterProducts}
-          className='border-2 border-gray w-[15%] rounded-lg bg-emerald-600 text-white max-md:w-[30%] disabled:opacity-50'
-        >
-          Search
-        </button>
+      <div>
+        <form className='' onSubmit={filterProducts}>
+          <div className='flex'>
+              <input
+                className='border-2 border-b-2 rounded-l-lg border-gray-300  py-5 px-1 text-2xl outline-none max-md:py-3 inline w-[85%] max-md:w-[70%]'
+                type='text'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                minLength={3}
+                required
+                name='search_input'
+                onFocus={(e) => { setFocus(true), setSubmitted(false) }}
+                // onBlur={(e) => setFocus(false)}
+                // id='search_products' cannot has id equal to list id
+                // list='search_products'
+              />          
+            {/* <datalist id='search_products'>
+              <option value='Air Max Plus Drift'></option>
+              <option value='Air Max 90'></option>
+              <option value='Adi2000'></option>
+            </datalist> */}
+
+            <button
+              type='submit'
+              className='w-[10%] rounded-r-lg bg-blue-600 text-white max-md:w-[30%] flex justify-center items-center'
+            >
+              <IoSearchOutline size={35} />
+            </button>
+          </div>
+
+          {!submitted && (
+            <DropDown setName={setName} focus={focus} setFocus={setFocus} name={name}/>
+          )}
+        </form>
       </div>
 
       {filteredData.length > 0 && (

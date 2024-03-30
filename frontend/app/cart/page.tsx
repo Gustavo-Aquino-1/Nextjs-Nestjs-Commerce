@@ -3,16 +3,24 @@
 import FormModal from '@/components/FormModal'
 import Modal from '@/components/Modal'
 import { Context } from '@/context/Provider'
+import { round } from '@/utils/price'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
 
 function Cart() {
-  const { cart, addToCart, removeFromCart } = useContext(Context)
+  const {
+    cart,
+    addToCart,
+    removeFromCart,
+    setTotal: setGlobalTotal,
+  } = useContext(Context)
   const [inputVisible, setInputVisible] = useState(false)
   const [promoCode, setPromoCode] = useState(false)
   const [productQuantity, setProductQuantity] = useState(0)
   const [total, setTotal] = useState<number>()
   const [modalOpen, setModalOpen] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     let quantity = 0
@@ -28,8 +36,7 @@ function Cart() {
   }, [cart])
 
   return (
-    <div className='min-w-full m-0'>
-      <FormModal />
+    <div className=''>
       <Modal
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
@@ -48,6 +55,7 @@ function Cart() {
               />
               <div className='flex flex-col justify-center gap-5'>
                 <p className='text-lg font-bold'>{cart[e].name}</p>
+                <p className='text-lg font'><strong>Size:</strong> {cart[e].size}</p>
                 <p>{`R$ ${cart[e].price}`}</p>
                 <div className='flex gap-5'>
                   <button
@@ -76,13 +84,13 @@ function Cart() {
           </div>
           <div className='flex justify-between'>
             <p>Estimated Shipping</p>
-            <p>{`R$ ${Number(productQuantity * 0.6).toFixed(2)}`}</p>
+            <p>{`R$ ${round(productQuantity * 0.6)}`}</p>
           </div>
           <div className='flex justify-between'>
             <p>Total</p>
             <p>{`R$ ${Number(
-              +Number(total).toFixed(2) +
-                +Number(productQuantity * 0.6).toFixed(2),
+              round(total) +
+                round(productQuantity * 0.6),
             ).toFixed(2)}`}</p>
           </div>
           {!promoCode && (
@@ -103,7 +111,7 @@ function Cart() {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault()
-                    setTotal(+Number(Number(total) * 0.9).toFixed(2))
+                    setTotal(round((Number(total) * 0.9)))
                     setPromoCode(true)
                     setModalOpen(true)
                   }}
@@ -124,7 +132,13 @@ function Cart() {
               )}
             </>
           )}
-          <button className='bg-black text-white py-2 rounded-md'>
+          <button
+            onClick={(e) => {
+              setGlobalTotal(round(round(total) + round(productQuantity * 0.6)))
+              router.push('/checkout')
+            }}
+            className='bg-black text-white py-2 rounded-md'
+          >
             Finish
           </button>
         </div>
