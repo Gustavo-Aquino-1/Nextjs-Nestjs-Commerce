@@ -46,7 +46,12 @@ function Search() {
   }
 
   return (
-    <div className='pt-20 mb-20 max-w-[80%] m-auto min-h-full flex flex-col gap-10'>
+    <div
+      onClick={(e) =>
+        !String(e.target.className).includes('dropdown') && setFocus(false)
+      }
+      className='pt-20 mb-20 max-w-[80%] m-auto min-h-full flex flex-col gap-10'
+    >
       <div>
         <button onClick={(e) => setMoreOptions(!moreOptions)}>
           More options
@@ -111,19 +116,21 @@ function Search() {
       <div>
         <form className='' onSubmit={filterProducts}>
           <div className='flex'>
-              <input
-                className='border-2 border-b-2 rounded-l-lg border-gray-300  py-5 px-1 text-2xl outline-none max-md:py-3 inline w-[85%] max-md:w-[70%]'
-                type='text'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                minLength={3}
-                required
-                name='search_input'
-                onFocus={(e) => { setFocus(true), setSubmitted(false) }}
-                // onBlur={(e) => setFocus(false)}
-                // id='search_products' cannot has id equal to list id
-                // list='search_products'
-              />          
+            <input
+              className='border-2 border-b-2 rounded-l-lg border-gray-300  py-5 px-1 text-2xl outline-none max-md:py-3 inline w-[85%] max-md:w-[70%] dropdown'
+              type='text'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              minLength={3}
+              required
+              name='search_input'
+              onFocus={(e) => {
+                setFocus(true), setSubmitted(false)
+              }}
+              // onBlur={(e) => setFocus(false)}
+              // id='search_products' cannot has id equal to list id
+              // list='search_products'
+            />
             {/* <datalist id='search_products'>
               <option value='Air Max Plus Drift'></option>
               <option value='Air Max 90'></option>
@@ -139,7 +146,12 @@ function Search() {
           </div>
 
           {!submitted && (
-            <DropDown setName={setName} focus={focus} setFocus={setFocus} name={name}/>
+            <DropDown
+              setName={setName}
+              focus={focus}
+              setFocus={setFocus}
+              name={name}
+            />
           )}
         </form>
       </div>
