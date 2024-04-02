@@ -2,19 +2,23 @@
 
 import ConfirmationModal from '@/components/ConfirmationModal'
 import { Context } from '@/context/Provider'
+import { getServerSession } from 'next-auth'
 import { useContext, useState } from 'react'
-import { FaCcVisa } from "react-icons/fa";
-import { FaCcMastercard } from "react-icons/fa";
-import { FaPaypal } from "react-icons/fa";
-import { FaPix } from "react-icons/fa6";
+import { FaCcVisa } from 'react-icons/fa'
+import { FaCcMastercard } from 'react-icons/fa'
+import { FaPaypal } from 'react-icons/fa'
+import { FaPix } from 'react-icons/fa6'
+import { nextAuthOptions } from '../api/auth/[...nextauth]/route'
+import api from '../api'
 
+interface CheckoutProps {
+  user: any
+}
 
-
-
-function Checkout() {
+function Checkout({ user }: CheckoutProps) {
   const [modalOpen, setModalOpen] = useState(false)
   const [checked, setChecked] = useState(false)
-  const { total } = useContext(Context)
+  const { total, cart, setCart, setTotal } = useContext(Context)
   const [cep, setCep] = useState('')
   const [number, setNumber] = useState('')
 
@@ -24,6 +28,26 @@ function Checkout() {
       if (!'1234567890'.includes(cep[i])) return alert('Should be numbers')
     }
     setModalOpen(true)
+  }
+  
+  async function createOrder() {
+    try {
+      await api.post('/order', {
+        cep,
+        number: +number,
+        paymentType: 'pix',
+        total,
+        products: Object.keys(cart).map((e) => ({
+          productId: cart[e].id,
+          size: cart[e].size,
+          quantity: cart[e].quantity,
+        }))
+      }, {headers: { Authorization: user.acess_token}})
+      setCart({})
+      setTotal(0)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -42,7 +66,9 @@ function Checkout() {
             setModalOpen(false)
           }
         }}
-        className={`pt-10 flex flex-col gap-5 pl-10 w-100% ${modalOpen && 'blur-lg'}`}
+        className={`pt-10 flex flex-col gap-5 pl-10 w-100% ${
+          modalOpen && 'blur-lg'
+        }`}
       >
         <div className='flex flex-col gap-5'>
           <h1 className='text-2xl font-semibold'>Find me</h1>
@@ -50,13 +76,13 @@ function Checkout() {
             className='flex gap-3 justify-between max-w-[20%]'
             htmlFor='cep'
           >
-            <span className='font-bold'>Cep</span>
+            <span className='font-bold flex items-end text-xl'>Cep</span>
             <input
               value={cep}
               onChange={(e) => setCep(e.target.value)}
               type='text'
               id='cep'
-              className='border-2 border-gray-400 py-4 px-4'
+              className='border-2 border-gray-400 px-4'
             />
             {!checked && (
               <button
@@ -73,13 +99,13 @@ function Checkout() {
               htmlFor='number'
               className='flex gap-3 justify-between max-w-[20%]'
             >
-              <span className='font-bold'>Number</span>
+              <span className='font-bold flex items-end text-xl'>Number</span>
               <input
                 type='text'
                 value={number}
                 onChange={(e) => setNumber(e.target.value)}
                 id='number'
-                className='border-2 border-gray-400'
+                className='border-2 border-gray-400 px-4'
               />
             </label>
           )}
@@ -135,16 +161,28 @@ function Checkout() {
           <div className='flex flex-col gap-3'>
             <p className='text-xl '>Acceptable payments:</p>
             <ul className='flex gap-3'>
-              <li><FaCcVisa size={45} /></li>
-              <li><FaCcMastercard size={45} /></li>
-              <li><FaPaypal size={45} /></li>
-              <li><FaPix size={45} /></li>
+              <li>
+                <FaCcVisa size={45} />
+              </li>
+              <li>
+                <FaCcMastercard size={45} />
+              </li>
+              <li>
+                <FaPaypal size={45} />
+              </li>
+              <li>
+                <FaPix size={45} />
+              </li>
             </ul>
           </div>
         </div>
         {/* ----- */}
 
-        <button className='self-start bg-emerald-700 px-10 py-1 mt-4 rounded-lg text-white hover:bg-emerald-800'>Pay</button>
+        {number.length > 0 && (
+          <button onClick={createOrder} className='self-start bg-emerald-700 px-10 py-1 mt-4 rounded-lg text-white hover:bg-emerald-800'>
+            Pay
+          </button>
+        )}
       </div>
     </div>
   )

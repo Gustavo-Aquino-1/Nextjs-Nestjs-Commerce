@@ -47,25 +47,28 @@ async function Products({ title, productId, filters }: ProductsProps) {
       <div
         className={`flex justify-between m-auto ${
           data.length >= 3 ? 'max-w-[80%]' : 'max-w-[50%]'
-        } max-md:flex-col max-md:max-w-[90%] max-md:justify-center max-md:gap-10`}
+        } max-md:flex-col max-md:max-w-[90%] max-md:justify-center max-md:gap-10 gap-10`}
       >
         {data.map((e: any) => (
-          <div key={e.id} className='flex flex-col items-center justify-center'>
+          <div key={e.id} className='flex flex-col items-center justify-center gap-2 lg:border-2 lg:border-gray-300 lg:rounded-md'>
             <Link
-              className='scale-95 hover:scale-100 z-0'
+              className='z-0 scale-100'
               href={`/product/${e.id}`}
             >
-              <Image src={e.img} width={300} height={300} alt={e.name} />
+              <Image className='lg:rounded-t-md' src={e.img} width={300} height={300} alt={e.name} />
             </Link>
             <Link
               href={`/product/${e.id}`}
-              className={`font-bold hover:text-emerald-600 hover:underline text-lg`}
+              className={`font-semibold hover:text-emerald-600 hover:underline text-lg text-gray-600`}
             >
               {e.name}
             </Link>
-            <p
-              className={`z-0 ${openSans.className} text-lg`}
-            >{`R$ ${e.price}`}</p>
+            <div className='pb-4'>
+              <p className='text-gray-500 line-through'>{`R$ ${e.price + e.price * 0.20}`}</p>
+              <p
+                className={`z-0 ${openSans.className} text-lg`}
+              >{`R$ ${e.price}`}</p>
+            </div>
           </div>
         ))}
       </div>

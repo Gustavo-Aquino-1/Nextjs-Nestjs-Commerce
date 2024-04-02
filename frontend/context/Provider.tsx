@@ -40,7 +40,8 @@ export default function Provider({ children }: PropsWithChildren) {
       addToCart,
       removeFromCart,
       total,
-      setTotal
+      setTotal,
+      setCart
     }),
     [cart, total],
   )
