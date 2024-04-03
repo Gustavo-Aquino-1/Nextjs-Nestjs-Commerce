@@ -94,4 +94,13 @@ export default class ProductService {
     await prisma.favorite.create({ data: { productId, userId } });
     return 'yes';
   }
+
+  async getFavorites(userId: number, startIn: number, take: number) {
+    return await prisma.favorite.findMany({
+      where: { userId },
+      include: { product: true },
+      skip: startIn,
+      take,
+    });
+  }
 }

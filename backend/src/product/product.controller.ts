@@ -63,6 +63,18 @@ export default class ProductController {
     return res.status(204).json(null);
   }
 
+  @UseGuards(new IsAuthorized())
+  @Get('/favorite')
+  async getFavorites(@Req() req: Request) {
+    const user = decodeJwt(req) as any;
+    const { startIn, take } = req.query;
+    return this.service.getFavorites(
+      user.id,
+      Number(startIn) || 0,
+      Number(take) || 5,
+    );
+  }
+
   @Get('/:id')
   async getById(@Req() req: Request) {
     return await this.service.getById(+req.params.id);

@@ -10,7 +10,7 @@ interface LoginLayoutProps {
 export default async function LoginLayout({ children }: LoginLayoutProps) {
   const session = await getServerSession(nextAuthOptions)
   if (session) {
-    return redirect('/account')
+    return redirect('/')
   }
   return <>{children}</>
 }

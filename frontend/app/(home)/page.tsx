@@ -10,6 +10,17 @@ import basketball from '@/public/basketball.jpg'
 import f1 from '@/public/f1.png'
 import bgDiscount from '@/public/bg-discount.jpg'
 import classes from './home.module.css'
+import basketballHover from '@/public/basketballHover.jpeg'
+import f1Hover from '@/public/f1Hover.jpeg'
+import soccerHover from '@/public/soccerHover.jpeg'
+import { Space_Grotesk } from '@next/font/google'
+import { GiFireZone } from "react-icons/gi";
+
+
+const sportsFont = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['500', '600'],
+})
 
 export default async function Home() {
   return (
@@ -17,29 +28,26 @@ export default async function Home() {
       <div
         className={`bg-black p-4 h-[40rem] flex flex-col justify-center items-center ${classes.sale} max-[1150px]:h-[30rem] max-md:h-[20rem] max-sm:h-[15rem]`}
       >
-        {/* <p className='text-4xl font-extralight text-emerald-700'>20%</p>
-        <p className='text-xl font-semibold text-emerald-700'>
-          Every T-shirt in the GAX
-        </p> */}
       </div>
       <div>
         <Products filters={{ line: 'Summer', take: 3 }} title='Summer line' />
         <Products filters={{ line: 'Casual', take: 3 }} title='Casual line' />
       </div>
-      <div
-        style={{
-          background: 'linear-gradient(to top, gray, lightgray)',
-        }}
-        className='bg-black p-28'
-      >
-        <div className='flex justify-between w-[100%] m-auto'>
-          <Card img={soccer} alt='Soccer' />
+      <div style={{ background: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3jL3rIvLAaukMrIJrwhpq5pCrJf2wtW0H9mYLCMt92CPYggJl6bV3rnBkOiUBEOMVpI&usqp=CAU')", backgroundSize: 'cover'}} className='bg-black p-28 flex flex-col gap-20'>
+        <div className='flex gap-5 justify-center'>
+          <h1 className={`text-white text-center text-4xl ${sportsFont.className}`}>
+            SPORTS ZONE
+          </h1>
+          <span><GiFireZone color='white' size={40} /></span>
+        </div>
+        <div className='flex justify-between gap-10 flex-wrap w-[100%] m-auto max-md:flex-col max-md:items-center'>
+          <Card img={[soccer, soccerHover]} alt='Soccer' />
           <Card
-            img={basketball}
+            img={[basketball, basketballHover]}
             alt='Basktball'
-            className='w-[320px] h-[550px] scale-110'
+            className='lg:scale-110'
           />
-          <Card img={f1} alt='f1' />
+          <Card img={[f1, f1Hover]} alt='f1' />
         </div>
       </div>
       <div>

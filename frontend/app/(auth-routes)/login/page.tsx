@@ -23,7 +23,7 @@ function Login() {
       return
     }
 
-    router.replace('/account')
+    router.back()
   }
 
   return (

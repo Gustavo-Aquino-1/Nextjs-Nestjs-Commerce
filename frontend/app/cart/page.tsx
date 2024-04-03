@@ -42,7 +42,7 @@ function Cart() {
         setModalOpen={setModalOpen}
         message='Promo code in use!'
       />
-      <div className='flex justify-center m-auto max-w-[90%] gap-20 mt-32 max-md:flex-col mb-20'>
+      <div className='flex justify-center m-auto max-w-[90%] gap-20 mt-32 max-[1050px]:flex-col mb-20'>
         <div className='w-[40%] max-md:w-[100%] flex flex-col gap-5'>
           <h1 className='text-2xl font-semibold'>Your cart</h1>
           {Object.keys(cart).map((e: any) => (

@@ -40,7 +40,7 @@ async function Products({ title, productId, filters }: ProductsProps) {
   return (
     <div className='p-4 min-h-[20rem] mb-40'>
       <p
-        className={`text-center capitalize text-2xl pb-10 ${openSans.className} hover:underline`}
+        className={`text-center capitalize text-2xl pb-10 text-amber-950 ${openSans.className} hover:`}
       >
         {title}
       </p>
@@ -50,7 +50,7 @@ async function Products({ title, productId, filters }: ProductsProps) {
         } max-md:flex-col max-md:max-w-[90%] max-md:justify-center max-md:gap-10 gap-10`}
       >
         {data.map((e: any) => (
-          <div key={e.id} className='flex flex-col items-center justify-center gap-2 lg:border-2 lg:border-gray-300 lg:rounded-md'>
+          <div key={e.id} className='flex flex-col items-center justify-center gap-2 lg:border-2 lg:border-gray-300 lg:rounded-md lg:hover:scale-105'>
             <Link
               className='z-0 scale-100'
               href={`/product/${e.id}`}
@@ -59,7 +59,7 @@ async function Products({ title, productId, filters }: ProductsProps) {
             </Link>
             <Link
               href={`/product/${e.id}`}
-              className={`font-semibold hover:text-emerald-600 hover:underline text-lg text-gray-600`}
+              className={`font-semibold hover:text-amber-900 text-lg text-gray-600`}
             >
               {e.name}
             </Link>
