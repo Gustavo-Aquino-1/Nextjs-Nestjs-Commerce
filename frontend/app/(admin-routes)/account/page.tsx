@@ -36,7 +36,7 @@ function MyAccount() {
           )}
         </li>
         <li>
-          <Link className='hover:text-blue-400' href='/home'>
+          <Link className='hover:text-blue-400' href='/orders'>
             My Orders
           </Link>
         </li>

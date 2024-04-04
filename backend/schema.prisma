@@ -42,6 +42,7 @@ model Order {
   number Int
   paymentType String
   orderProduct OrderProduct[]
+  saleDate DateTime @default(now())
 }
 
 model OrderProduct {

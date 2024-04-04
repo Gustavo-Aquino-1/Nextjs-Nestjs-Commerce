@@ -20,4 +20,14 @@ export default class OrderService {
 
     return newOrder;
   }
+
+  async get(userId: number, startIn: number) {
+    return prisma.order.findMany({
+      where: {
+        userId,
+      },
+      skip: startIn,
+      take: 5,
+    });
+  }
 }

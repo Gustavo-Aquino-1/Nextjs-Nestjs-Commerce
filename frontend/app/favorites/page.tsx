@@ -74,7 +74,7 @@ function Favorites({ user }: FavoritesProps) {
           </div>
         ))}
       </div>
-      <button className='border-2 px-2 self-center py-1 border-gray-700 bg-gray-600 text-white disabled:opacity-70' onClick={getFavorites} disabled={finished}>
+      <button className='border-2 px-2 self-center py-1 border-gray-700 bg-gray-600 text-white disabled:opacity-70 hover:bg-gray-800' onClick={getFavorites} disabled={finished}>
         View More
       </button>
     </div>
