@@ -2,6 +2,7 @@
 
 import React,{ useState } from 'react'
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
 
 function MyAccount() {
   const [accountOptions, setAccountOptions] = useState(false)
@@ -45,6 +46,8 @@ function MyAccount() {
             My Favorites
           </Link>
         </li>
+
+        <button onClick={async () => await signOut()} className='self-start border-2 px-4 border-black rounded hover:bg-black hover:text-white'>logout</button>
       </ul>
     </div>
   )

@@ -50,7 +50,7 @@ function ConfirmationModal({
       {modalOpen && !loading && (
         <div className='absolute top-1/2 transform -translate-y-1/2 left-0 right-0 flex justify-center z-50'>
           {' '}
-          {/* when blur comes will not override this div because it will go up in this because z-50 it's like bring to first plan. */}
+          {/* when blur comes will not override this div because it will go up in this because z-50 it's like bring to first plan. And this modal cannot be inside of the div that the blur is cause it will not work this way. */}
           <div className='flex flex-col gap-2 justify-center p-5 rounded-md bg-slate-800 text-white text-xl shadow-lg shadow-gray-800'>
             <p>
               <strong>Street:</strong>

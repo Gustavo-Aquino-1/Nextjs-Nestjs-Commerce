@@ -9,4 +9,14 @@ export default class FeedbackService {
       data: { ...feedback, userId: user.id } as any,
     });
   }
+
+  async isRated(userId: number, productId: number) {
+    const res = await prisma.feedback.findMany({
+      where: {
+        userId,
+        productId,
+      },
+    });
+    return res.length > 0 ? { message: 'rated' } : { message: 'not rated' };
+  }
 }

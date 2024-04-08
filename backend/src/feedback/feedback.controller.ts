@@ -2,6 +2,7 @@ import {
   Body,
   ConflictException,
   Controller,
+  Get,
   Post,
   Req,
   UseGuards,
@@ -26,5 +27,12 @@ export default class FeedbackController {
         message: 'You already rated this product',
       });
     }
+  }
+
+  @Get('/:id')
+  @UseGuards(new IsAuthorized())
+  async isRated(@Req() req: Request) {
+    const user = decodeJwt(req) as any;
+    return this.service.isRated(+user.id, +req.params.id);
   }
 }

@@ -23,4 +23,10 @@ export default class OrderController {
     const user = decodeJwt(req) as any;
     return this.service.get(user.id, Number(startIn) || 0);
   }
+
+  @UseGuards(new IsAuthorized())
+  @Get('/:id')
+  async getById(@Req() req: Request) {
+    return this.service.getById(+req.params.id);
+  }
 }

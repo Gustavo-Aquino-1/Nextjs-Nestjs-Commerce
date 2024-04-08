@@ -30,4 +30,13 @@ export default class OrderService {
       take: 5,
     });
   }
+
+  async getById(orderId) {
+    return prisma.orderProduct.findMany({
+      where: {
+        orderId,
+      },
+      include: { product: true },
+    });
+  }
 }

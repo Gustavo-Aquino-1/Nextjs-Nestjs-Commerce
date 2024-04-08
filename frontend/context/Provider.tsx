@@ -9,6 +9,7 @@ const Context = createContext({})
 export default function Provider({ children }: PropsWithChildren) {
   const [cart, setCart] = useLocalStorage('cart', {})
   const [total, setTotal] = useLocalStorage('total', 0)
+  const [orderDetails, setOrderDetails] = useLocalStorage('orderDetails', {})
 
   const addToCart = (product: any, size: string) => {
     const key = `${product.id}${size}`
@@ -41,9 +42,11 @@ export default function Provider({ children }: PropsWithChildren) {
       removeFromCart,
       total,
       setTotal,
-      setCart
+      setCart,
+      orderDetails,
+      setOrderDetails
     }),
-    [cart, total],
+    [cart, total, orderDetails],
   )
   return <Context.Provider value={contextValue}>{children}</Context.Provider>
 }
