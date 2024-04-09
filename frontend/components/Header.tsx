@@ -7,12 +7,20 @@ import { IoCartOutline } from 'react-icons/io5'
 
 export default async function Header() {
   return (
-    <header className='flex justify-between w-full p-[1rem] fixed top-0 bg-white border-gray-300 border-b-2 z-50'>
-      <Link href="/" className='text-pretty text-xl'>GAX</Link>
+    <header className='flex justify-between w-full p-[1.5rem] fixed top-0 lg:bg-[#141414] md:bg-[#141414] bg-black text-white z-50'>
+      <Link href='/' className='text-pretty text-xl'>
+        GAX
+      </Link>
       <div className='flex gap-4'>
-        <Link href="/search"><CiSearch size={'2rem'} /></Link>
-        <Link href="/cart"><IoCartOutline size={'1.8rem'} /></Link>
-        <Link href="/account"><FaUser size={'1.8rem'} /></Link>
+        <Link href='/search'>
+          <CiSearch size={'2rem'} />
+        </Link>
+        <Link href='/cart'>
+          <IoCartOutline size={'1.8rem'} />
+        </Link>
+        <Link href='/account'>
+          <FaUser size={'1.8rem'} />
+        </Link>
       </div>
     </header>
   )

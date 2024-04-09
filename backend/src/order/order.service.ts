@@ -21,7 +21,7 @@ export default class OrderService {
     return newOrder;
   }
 
-  async get(userId: number, startIn: number) {
+  async get(userId: string, startIn: number) {
     return prisma.order.findMany({
       where: {
         userId,

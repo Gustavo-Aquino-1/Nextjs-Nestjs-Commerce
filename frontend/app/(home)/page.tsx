@@ -26,7 +26,7 @@ export default async function Home() {
   return (
     <div className='flex flex-col gap-10 pb-20'>
       <div
-        className={`bg-black p-4 h-[40rem] flex flex-col justify-center items-center ${classes.sale} max-[1150px]:h-[30rem] max-md:h-[20rem] max-sm:h-[15rem]`}
+        className={`bg-black p-4 h-[40rem] flex flex-col justify-center items-center ${classes.sale} max-[1150px]:h-[30rem] max-md:h-[800px] max-sm:h-[500px]`}
       >
       </div>
       <div>

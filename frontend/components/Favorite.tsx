@@ -1,6 +1,7 @@
 'use client'
 
 import api from '@/app/api'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { FaRegHeart } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa'
@@ -13,6 +14,8 @@ interface FavoriteProps {
 function Favorite({ token, productId }: FavoriteProps) {
   const [isFavorite, setIsFavorite] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [logged, setLogged] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     async function checkFavorite() {
@@ -24,17 +27,26 @@ function Favorite({ token, productId }: FavoriteProps) {
   }, [])
 
   async function favorite(check?: string) {
-    const { data } = await api.patch(
-      `/product/favorite/${productId}?check=${check ? check : 'not'}`,
-      null,
-      {
-        headers: { Authorization: token },
-      },
-    )
-    return data
+    try {
+      const { data } = await api.patch(
+        `/product/favorite/${productId}?check=${check ? check : 'not'}`,
+        null,
+        {
+          headers: { Authorization: token },
+        },
+      )
+      return data
+    } catch (error) {
+      setLogged(false)
+      return { message: 'not'}
+    }
   }
 
   const handleClick = async () => {
+    if(!logged) {
+      router.push('/login')
+      return
+    } 
     await favorite()
     setIsFavorite(!isFavorite)
   }

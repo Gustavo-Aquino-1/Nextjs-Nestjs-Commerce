@@ -95,12 +95,12 @@ function Cart() {
               </div>
               <div className='flex justify-between'>
                 <p>Estimated Shipping</p>
-                <p>{`R$ ${round(productQuantity * 0.6)}`}</p>
+                <p>{`R$ ${round(productQuantity * 0.6) + 5}`}</p>
               </div>
               <div className='flex justify-between'>
                 <p>Total</p>
                 <p>{`R$ ${Number(
-                  round(total) + round(productQuantity * 0.6),
+                  round(total) + round(productQuantity * 0.6) + 5,
                 ).toFixed(2)}`}</p>
               </div>
               {!promoCode && (

@@ -39,7 +39,7 @@ function SignUp() {
         return
       }
 
-      router.back()
+      router.replace('/home')
     } catch (error) {
       setError(error.response.data.message)
     }
@@ -47,7 +47,11 @@ function SignUp() {
 
   return (
     <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
-      {error && <p className='text-center font-semibold text-red-400 capitalize'>{error}</p>}
+      {error && (
+        <p className='text-center font-semibold text-red-400 capitalize'>
+          {error}
+        </p>
+      )}
       <label className='flex flex-col gap-1' htmlFor='name'>
         Name
         <input
@@ -55,7 +59,7 @@ function SignUp() {
           id='name'
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className='border border-black py-3'
+          className='border border-black py-3 px-2'
           required
           minLength={2}
         />
@@ -68,7 +72,7 @@ function SignUp() {
           id='email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className='border border-black py-3'
+          className='border border-black py-3 px-2'
           required
         />
       </label>
@@ -79,7 +83,7 @@ function SignUp() {
           id='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className='border border-black py-3'
+          className='border border-black py-3 px-2'
           required
           minLength={8}
         />
@@ -91,7 +95,7 @@ function SignUp() {
           id='passwordConfirmation'
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
-          className='border border-black py-3'
+          className='border border-black py-3 px-2'
           required
           minLength={8}
         />
@@ -100,11 +104,15 @@ function SignUp() {
         <input className='scale-150' required type='checkbox' id='agree' />
         <div className='flex gap-1'>
           <p>I Accept all</p>
-          <Link
-          className='font-bold hover:underline' href="/">Terms.</Link>
+          <Link className='font-bold hover:underline' href='/'>
+            Terms.
+          </Link>
         </div>
       </label>
-      <button className='border border-black py-3 bg-black text-white text-lg font-semibold hover:font-bold' type='submit'>
+      <button
+        className='border border-black py-3 bg-black text-white text-lg font-semibold hover:font-bold'
+        type='submit'
+      >
         CREATE ACCOUNT
       </button>
     </form>

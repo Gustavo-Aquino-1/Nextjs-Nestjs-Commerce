@@ -25,9 +25,6 @@ interface ProductsProps {
 }
 
 async function Products({ title, productId, filters }: ProductsProps) {
-  // charge = 1
-  // after each requisiton charge + 1
-  // startIn = charge x 3 (if 3 is the number of products get in each requisition)
   let filtersStr = Object.keys(filters)
     .map((e) => `${e}=${filters[e]}&`)
     .join('')
@@ -40,26 +37,26 @@ async function Products({ title, productId, filters }: ProductsProps) {
   return (
     <div className='p-4 min-h-[20rem] mb-40'>
       <p
-        className={`text-center capitalize text-2xl pb-10 text-amber-950 ${openSans.className} hover:`}
+        className={`text-center capitalize text-2xl pb-10  ${openSans.className} hover:`}
       >
         {title}
       </p>
       <div
         className={`flex justify-between m-auto ${
           data.length >= 3 ? 'max-w-[80%]' : 'max-w-[50%]'
-        } max-md:flex-col max-md:max-w-[90%] max-md:justify-center max-md:gap-10 gap-10`}
+        } max-md:overflow-x-scroll max-md:max-w-none gap-10 scrollbar-thumb-rounded-full scrollbar-track-rounded-full max-md:pr-[50px] scrollbar-thin`}
       >
         {data.map((e: any) => (
-          <div key={e.id} className='flex flex-col items-center justify-center gap-2 lg:border-2 lg:border-gray-300 lg:rounded-md lg:hover:scale-105'>
+          <div key={e.id} className='flex flex-col items-center justify-center max-md:items-start gap-2 lg:border-2 lg:border-gray-300 lg:rounded-md lg:hover:scale-105 bg-gray-300 text-gray-700 max-md:bg-white max-md:text-black'>
             <Link
               className='z-0 scale-100'
               href={`/product/${e.id}`}
             >
-              <Image className='lg:rounded-t-md' src={e.img} width={300} height={300} alt={e.name} />
+              <Image className='lg:rounded-t-md min-w-[200px]' src={e.img} width={300} height={300} alt={e.name} />
             </Link>
             <Link
               href={`/product/${e.id}`}
-              className={`font-semibold hover:text-amber-900 text-lg text-gray-600`}
+              className={`font-semibold hover:font-bold text-lg text-gray-600 max-md:text-base`}
             >
               {e.name}
             </Link>

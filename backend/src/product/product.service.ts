@@ -71,7 +71,7 @@ export default class ProductService {
     return { ...product, rate };
   }
 
-  async favorite(productId: number, userId: number, check: string) {
+  async favorite(productId: number, userId: string, check: string) {
     const filter = {
       where: {
         favoriteId: {
@@ -95,7 +95,7 @@ export default class ProductService {
     return 'yes';
   }
 
-  async getFavorites(userId: number, startIn: number, take: number) {
+  async getFavorites(userId: string, startIn: number, take: number) {
     return await prisma.favorite.findMany({
       where: { userId },
       include: { product: true },

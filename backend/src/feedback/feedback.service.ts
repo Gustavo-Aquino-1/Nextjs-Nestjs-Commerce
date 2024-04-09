@@ -4,13 +4,13 @@ import prisma from 'src/prisma';
 
 @Injectable()
 export default class FeedbackService {
-  async create(user: { id: number }, feedback: CreateFeedbackDto) {
+  async create(user: { id: string }, feedback: CreateFeedbackDto) {
     return await prisma.feedback.create({
       data: { ...feedback, userId: user.id } as any,
     });
   }
 
-  async isRated(userId: number, productId: number) {
+  async isRated(userId: string, productId: number) {
     const res = await prisma.feedback.findMany({
       where: {
         userId,

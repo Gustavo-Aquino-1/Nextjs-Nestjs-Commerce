@@ -1,6 +1,7 @@
 'use client'
 
 import { signIn } from 'next-auth/react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useEffect, useState } from 'react'
 
@@ -22,7 +23,7 @@ function Login() {
       return
     }
 
-    router.back()
+    router.replace('/home')
   }
 
   return (
@@ -38,7 +39,8 @@ function Login() {
           id='email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className='border border-gray-800 py-3'
+          className='border border-gray-800 py-3 px-2'
+          required
         />
       </label>
       <label className='flex flex-col gap-2' htmlFor="password">
@@ -48,7 +50,9 @@ function Login() {
           id='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className='border border-gray-800 py-3'
+          className='border border-gray-800 py-3 px-2'
+          minLength={8}
+          required
         />
       </label>
       <button
@@ -57,7 +61,8 @@ function Login() {
       >
         LOGIN
       </button>
-      
+
+      <Link className='font-semibold hover:underline' href="/recover">Forgotten your password?</Link>
     </form>
   )
 }

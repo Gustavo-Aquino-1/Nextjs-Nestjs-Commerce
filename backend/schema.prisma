@@ -8,7 +8,7 @@ generator client {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @db.VarChar(36) @id @default(uuid())
   name String
   email String @unique
   password String
@@ -35,7 +35,7 @@ model Product {
 
 model Order {
   id Int @id @default(autoincrement())
-  userId Int
+  userId String
   user User @relation(fields:[userId], references: [id])
   total Float
   cep String
@@ -63,7 +63,7 @@ model Size {
 }
 
 model Feedback {
-  userId Int
+  userId String
   user User @relation(fields:[userId], references:[id])
   productId Int
   product Product @relation(fields: [productId], references: [id])
@@ -73,7 +73,7 @@ model Feedback {
 }
 
 model Favorite {
-  userId Int
+  userId String
   user User @relation(fields: [userId], references: [id])
   productId Int
   product Product @relation(fields: [productId], references: [id])

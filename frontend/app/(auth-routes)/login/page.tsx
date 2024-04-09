@@ -11,7 +11,7 @@ function AuthPage() {
   const [area, setArea] = useState('login')
   return (
     <div className='flex flex-col items-center absolute top-1/2 transform -translate-y-1/2 left-0 right-0 w-full gap-5'>
-      <div className='flex min-w-[25%] text-xl cursor-pointer'>
+      <div className='flex min-w-[25%] text-xl cursor-pointer max-lg:min-w-[60%]  max-md:min-w-[75%]'>
         <div
           onClick={() => setArea('login')}
           className='w-[50%] text-center flex flex-col gap-1'
@@ -35,7 +35,7 @@ function AuthPage() {
           ></div>
         </div>
       </div>
-      <div className='min-w-[25%] max-w-[25%] flex flex-col gap-5'>
+      <div className='min-w-[25%] max-w-[25%] max-lg:min-w-[60%] max-lg:max-w-[60%] flex flex-col gap-5 max-md:min-w-[75%] max-md:max-w-[75%]'>
         {area == 'login' ? <Login /> : <SignUp />}
         <p className='text-gray-500 text-sm'>
           By continuing, I confirm that I have read and accept the{' '}

@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <Header />
-        <div className='mt-[65px]'>
+        <div className='mt-[80px]'>
           <NextAuthSessionProvider>
             <Provider>{children}</Provider>
           </NextAuthSessionProvider>
