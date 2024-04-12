@@ -41,7 +41,7 @@ function Cart() {
     <div className=''>
       {Object.keys(cart).length == 0 ? (
         <div className='flex flex-col justify-center mt-32 gap-4'>
-          <h1 className='text-center text-2xl font-bold'>You don't have products in your cart!</h1>
+          <h1 className='text-center text-2xl font-bold'>You don&apos;t have products in your cart!</h1>
           <Link className='text-center text-lg text-blue-600 underline' href="/search">Search Products Here</Link>
         </div>
       ) : (

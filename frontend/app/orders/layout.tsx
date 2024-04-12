@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import Orders from "./page";
-import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
+import nextAuthOptions from "@/lib/nextAuthOptions";
 
 
 export default async function OrdersLayout() {

@@ -1,8 +1,8 @@
 import { getServerSession } from 'next-auth'
-import { nextAuthOptions } from '../api/auth/[...nextauth]/route'
 import Order from './page'
+import nextAuthOptions from '@/lib/nextAuthOptions'
 
 export default async function OrderLayout() {
   const session = await getServerSession(nextAuthOptions)
-  return <Order user={session?.user} />
+  return <Order />
 }

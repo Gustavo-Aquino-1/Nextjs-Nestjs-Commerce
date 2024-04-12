@@ -8,9 +8,22 @@
   background-position: top;
 }
 
+.sport_area {
+  background-image: url('../../public/sport_area.png');
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: top;
+}
 
 @media only screen and (max-width: 768px) {
   .sale {
     background-image: url('../../public/bg-home-mobile.png');
+  }
+
+  .sport_area {
+    background-image: url('../../public/sport_area_mobile.png');
   }
 }

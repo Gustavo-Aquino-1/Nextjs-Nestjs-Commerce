@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth'
-import { nextAuthOptions } from '../api/auth/[...nextauth]/route'
 import { redirect } from 'next/navigation'
 import Favorites from './page'
+import nextAuthOptions from '@/lib/nextAuthOptions'
 
 export default async function FavoritesLayout() {
   const session = await getServerSession(nextAuthOptions)
@@ -9,5 +9,5 @@ export default async function FavoritesLayout() {
     redirect('/login')
   }
 
-  return <Favorites user={session?.user} />
+  return <Favorites />
 }

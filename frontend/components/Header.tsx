@@ -7,7 +7,7 @@ import { IoCartOutline } from 'react-icons/io5'
 
 export default async function Header() {
   return (
-    <header className='flex justify-between w-full p-[1.5rem] fixed top-0 lg:bg-[#141414] md:bg-[#141414] bg-black text-white z-50'>
+    <header className='flex justify-between w-full p-[1rem] py-[1.3rem] fixed top-0 lg:bg-[#141414]md:bg-[#141414]  bg-slate-800 text-white'> 
       <Link href='/' className='text-pretty text-xl'>
         GAX
       </Link>

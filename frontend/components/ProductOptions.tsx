@@ -27,15 +27,19 @@ export default function ProductOptions({ product }: ProductProps) {
           alt={product?.name}
           width={600}
           height={600}
+          className={`border border-gray-300 ${
+            product.sizeId == 3 ? 'w-[500px]' : ''
+          } h-[600px]`}
         />
         <div className='flex flex-col gap-6'>
           <div>
+            <p className='text-2xl font-semibold mb-5 text-emerald-800'>R$ {product.price}</p>
             <p className='font-bold text-xl mb-4'>Available sizes:</p>
             <div className='flex gap-2'>
               {product?.size.sizes.split(' ').map((sizeOption: string) => (
                 <button
                   className={`p-3 border-2 border-solid border-gray hover:border-black active:bg-black active:text-white ${
-                    sizeOption == size && 'bg-black text-white'
+                    sizeOption == size && 'bg-emerald-800 text-white'
                   }`}
                   key={sizeOption}
                   onClick={() => setSize(sizeOption)}

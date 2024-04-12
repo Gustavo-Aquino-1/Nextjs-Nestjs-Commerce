@@ -65,7 +65,7 @@ function Search() {
               <label htmlFor=''>
                 <p>Min Price</p>
                 <input
-                  className='border-2 border-gray-300 p-2 outline-emerald-600 max-md:w-[100%]'
+                  className='border-2 border-gray-300 p-2 outline-slate-600 max-md:w-[100%]'
                   type='number'
                   value={minPrice}
                   onChange={(e) => setMinPrice(+e.target.value)}
@@ -75,7 +75,7 @@ function Search() {
               <label htmlFor=''>
                 <p>Max Price</p>
                 <input
-                  className='border-2 border-gray-300 p-2  outline-emerald-600 max-md:w-[100%]'
+                  className='border-2 border-gray-300 p-2  outline-slate-600 max-md:w-[100%]'
                   type='number'
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(+e.target.value)}
@@ -85,7 +85,7 @@ function Search() {
               <label htmlFor=''>
                 <p>Line</p>
                 <select
-                  className='p-2  outline-emerald-600 max-md:w-[100%] border-2 border-gray-300'
+                  className='p-2  outline-slate-600 max-md:w-[100%] border-2 border-gray-300'
                   name=''
                   id=''
                   onChange={(e) => setLine(e.target.value)}
@@ -99,7 +99,7 @@ function Search() {
               <label htmlFor=''>
                 <p>Type</p>
                 <select
-                  className='p-2  outline-emerald-600 max-md:w-[100%] border-2 border-gray-300'
+                  className='p-2  outline-slate-600 max-md:w-[100%] border-2 border-gray-300'
                   name=''
                   id=''
                   onChange={(e) => setType(e.target.value)}
@@ -172,7 +172,7 @@ function Search() {
                 </Link>
                 <Link
                   href={`/product/${e.id}`}
-                  className={`font-semibold hover:text-emerald-600 hover:underline text-lg text-gray-600`}
+                  className={`font-semibold hover:font-semibold text-lg text-gray-600`}
                 >
                   {e.name}
                 </Link>
@@ -181,7 +181,7 @@ function Search() {
                     e.price + e.price * 0.2
                   }`}</p>
                   <p
-                    className={`z-0 ${openSans.className} text-lg`}
+                    className={`z-0 ${openSans.className} text-lg text-[#bfa75d]`}
                   >{`R$ ${e.price}`}</p>
                 </div>
               </div>

@@ -39,7 +39,7 @@ function SignUp() {
         return
       }
 
-      router.replace('/home')
+      router.replace('/')
     } catch (error) {
       setError(error.response.data.message)
     }

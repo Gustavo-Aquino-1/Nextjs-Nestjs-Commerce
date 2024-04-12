@@ -12,53 +12,53 @@ const cedarville = Cedarville_Cursive({
 
 function Footer() {
   return (
-    <footer className='bg-black text-white p-10 max-md:p-5'>
+    <footer className='bg-slate-950 text-white p-10 max-md:p-5'>
       <h1 className={`self-start ${cedarville.className} text-2xl`}>Gax</h1>
       <div className='flex justify-between max-w-[80%] m-auto max-md:flex-wrap max-md:gap-2 max-md:justify-center'>
         <ul className='flex flex-col'>
           <li className='font-bold text-lg pb-2'>
-            <Link href='/home'>About us</Link>
+            <Link href='/'>About us</Link>
           </li>
           <li className='hover:underline'>
-            <Link href='/home'>Contact</Link>
+            <Link href='/'>Contact</Link>
           </li>
           <li className='hover:underline'>
-            <Link href='/home'>Group GAX</Link>
+            <Link href='/'>Group GAX</Link>
           </li>
           <li className='hover:underline'>
-            <Link href='/home'>Work with us</Link>
+            <Link href='/'>Work with us</Link>
           </li>
         </ul>
 
         <ul className='flex flex-col'>
           <li className='font-bold text-lg pb-2'>
-            <Link href='/home'>GAX Policies</Link>
+            <Link href='/'>GAX Policies</Link>
           </li>
           <li className='hover:underline'>
-            <Link href='/home'>Privacy Policy</Link>
+            <Link href='/'>Privacy Policy</Link>
           </li>
           <li className='hover:underline'>
-            <Link href='/home'>Delivery Policy</Link>
+            <Link href='/'>Delivery Policy</Link>
           </li>
           <li className='hover:underline'>
-            <Link href='/home'>GAX card Policy</Link>
+            <Link href='/'>GAX card Policy</Link>
           </li>
         </ul>
 
         <ul className='flex flex-col'>
           <li className='font-bold text-lg pb-2 text-center'>
-            <Link href='/home'>We are in</Link>
+            <Link href='/'>We are in</Link>
           </li>
           <li className='flex gap-5 max-md:flex-wrap'>
-            <Link className='hover:scale-105' href='/home'>
+            <Link className='hover:scale-105' href='/'>
               <AiFillInstagram size={30} />
             </Link>
-            <Link className='hover:scale-105' href='/home'>
+            <Link className='hover:scale-105' href='/'>
               <FaFacebook size={30} />
             </Link>
-            <Link className='hover:scale-105' href='/home'>
+            <a className='hover:scale-105' href='https://linkedin.com/in/gustavo--aquino' target="_blank">
               <FaLinkedin size={30} />
-            </Link>
+            </a>
           </li>
         </ul>
       </div>

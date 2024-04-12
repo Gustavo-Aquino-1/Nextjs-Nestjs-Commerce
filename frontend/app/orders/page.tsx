@@ -39,7 +39,7 @@ function Orders({ user }: OrdersProps) {
     <div className='p-10 text-xl flex flex-col gap-10 items-center'>
       <h1 className={`text-2xl ${ordersTitleFont.className}`}>MY ORDERS</h1>
       {orders.length == 0 ? (
-        <h1>You don't have orders yet</h1>
+        <h1>You don&apos;t have orders yet</h1>
       ) : (
         <>
           <div className='grid grid-cols-2 gap-8 gap-y-10 max-w-[80%] max-md:grid-cols-1'>
