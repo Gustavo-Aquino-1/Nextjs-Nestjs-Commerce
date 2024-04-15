@@ -9,6 +9,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
+import { FaTrashAlt } from "react-icons/fa";
+
 
 function Cart() {
   const {
@@ -16,7 +18,7 @@ function Cart() {
     addToCart,
     removeFromCart,
     setTotal: setGlobalTotal,
-  } = useContext(Context)
+  } = useContext(Context) as any
   const [inputVisible, setInputVisible] = useState(false)
   const [promoCode, setPromoCode] = useState(false)
   const [productQuantity, setProductQuantity] = useState(0)
@@ -134,7 +136,7 @@ function Cart() {
                         required
                       />
                       <input
-                        className='px-5 py-2 bg-black text-white rounded-md'
+                        className='px-5 py-2 bg-slate-800 text-white rounded-md'
                         type='submit'
                         value='Apply'
                       />
@@ -149,7 +151,7 @@ function Cart() {
                   )
                   router.push('/checkout')
                 }}
-                className='bg-black text-white py-2 rounded-md'
+                className='bg-slate-800 text-white py-2 rounded-md'
               >
                 Finish
               </button>

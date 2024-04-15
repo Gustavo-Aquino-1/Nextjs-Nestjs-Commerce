@@ -1,11 +1,8 @@
-import { getServerSession } from "next-auth";
-import Orders from "./page";
-import nextAuthOptions from "@/lib/nextAuthOptions";
+import { getServerSession } from 'next-auth'
+import Orders from './page'
+import nextAuthOptions from '@/lib/nextAuthOptions'
+import { PropsWithChildren } from 'react'
 
-
-export default async function OrdersLayout() {
-  const session = await getServerSession(nextAuthOptions)
-  return (
-    <Orders user={session?.user} />
-  )
+export default async function OrdersLayout({ children }: PropsWithChildren) {
+  return <>{children}</>
 }

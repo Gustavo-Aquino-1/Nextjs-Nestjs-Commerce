@@ -7,7 +7,9 @@ const inter = Inter({
 
 function SportDivisor() {
   return (
-    <div className={`bg-slate-800 text-white p-3 overflow-x-hidden flex gap-4 w-full font-bold ${inter.className}`}>
+    <div
+      className={`bg-slate-800 text-white p-3 overflow-x-hidden flex gap-4 w-full font-bold ${inter.className}`}
+    >
       <span>SPORT ZONE</span>
       <span>SPORT ZONE</span>
       <span>SPORT ZONE</span>
@@ -29,36 +31,3 @@ function SportDivisor() {
 }
 
 export default SportDivisor
-
-{
-  /* <div className='bg-black text-white p-3 overflow-x-hidden flex'>
-      <span className=''>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-      <span>SPORT ZONE</span>
-    </div> */
-}

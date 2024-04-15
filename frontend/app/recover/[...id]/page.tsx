@@ -16,7 +16,7 @@ function ResetPassword() {
     if (passwordUpdated) {
       setTimeout(() => {
         router.push('/login')
-      }, [3000])
+      }, 3000)
     }
   }, [passwordUpdated])
 

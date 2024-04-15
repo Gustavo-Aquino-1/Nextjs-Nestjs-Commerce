@@ -11,7 +11,7 @@ interface ProductProps {
 }
 
 export default function ProductOptions({ product }: ProductProps) {
-  const { cart, addToCart, removeFromCart } = useContext(Context)
+  const { cart, addToCart, removeFromCart } = useContext(Context) as any
   const [size, setSize] = useState<string>()
   const [modalOpen, setModalOpen] = useState(false)
   return (

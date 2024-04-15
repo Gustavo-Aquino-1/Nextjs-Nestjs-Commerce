@@ -1,6 +1,5 @@
 import Products from '@/components/Products'
 import classes from './home.module.css'
-import SmallAlerts from '@/components/SmallAlerts'
 import SportDivisor from '@/components/SportDivisor'
 
 export default async function Home() {

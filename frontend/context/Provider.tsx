@@ -46,7 +46,7 @@ export default function Provider({ children }: PropsWithChildren) {
       orderDetails,
       setOrderDetails
     }),
-    [cart, total, orderDetails],
+    [cart, addToCart, removeFromCart, total, setTotal, setCart, orderDetails, setOrderDetails],
   )
   return <Context.Provider value={contextValue}>{children}</Context.Provider>
 }

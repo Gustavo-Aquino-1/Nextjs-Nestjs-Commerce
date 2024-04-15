@@ -40,7 +40,7 @@ function SignUp() {
       }
 
       router.replace('/')
-    } catch (error) {
+    } catch (error: any) {
       setError(error.response.data.message)
     }
   }

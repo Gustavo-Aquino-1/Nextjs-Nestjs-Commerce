@@ -23,7 +23,7 @@ model Product {
   price Float
   name String 
   description String @db.VarChar(1000)
-  img String
+  img  String @db.VarChar(1500)
   type String @default("Adult")
   line String @default("Summer")
   orderProduct OrderProduct[]

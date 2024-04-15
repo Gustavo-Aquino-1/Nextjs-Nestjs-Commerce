@@ -12,7 +12,7 @@ interface OrderProps {
 }
 
 function OrderClient({ user }: OrderProps) {
-  const { orderDetails } = useContext(Context)
+  const { orderDetails } = useContext(Context) as any
   const [products, setProducts] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [productToRate, setProductToRate] = useState(0)

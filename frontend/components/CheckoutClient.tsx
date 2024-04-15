@@ -16,7 +16,7 @@ import { useSession } from 'next-auth/react'
 function CheckoutClient({ user }: { user: any }) {
   const [modalOpen, setModalOpen] = useState(false)
   const [checked, setChecked] = useState(false)
-  const { total, cart, setCart, setTotal } = useContext(Context)
+  const { total, cart, setCart, setTotal } = useContext(Context) as any
   const [cep, setCep] = useState('')
   const [number, setNumber] = useState('')
   const [loading, setLoading] = useState(false)
@@ -66,14 +66,14 @@ function CheckoutClient({ user }: { user: any }) {
     <div>
       {finished ? (
         <div className='pt-20 flex flex-col justify-center items-center absolute top-1/2 transform -translate-y-1/2 left-0 right-0'>
-          <h1 className='text-2xl'>Order made sucessfully</h1>
+          <h1 className='text-2xl'>Order made sucessfully, Thank you!</h1>
           <TbDiscountCheckFilled size={250} color='#1e293b' />
           <Link className='text-xl text-slate-700 underline' href='/orders'>
             See my orders
           </Link>
         </div>
       ) : (
-        <div>
+        <div className='text-slate-900'>
           <ConfirmationModal
             cep={cep}
             setCep={setCep}
@@ -106,15 +106,15 @@ function CheckoutClient({ user }: { user: any }) {
                   id='cep'
                   className='border border-black py-3 px-2'
                 />
-                {!checked && (
-                  <button
-                    onClick={checkCep}
-                    className='bg-black text-white px-4 py-1 opacity-90 hover:opacity-100 self-start rounded hover:font-semibold'
-                  >
-                    Apply
-                  </button>
-                )}
               </label>
+              {!checked && (
+                <button
+                  onClick={checkCep}
+                  className='bg-slate-800 text-white px-10 py-1 opacity-90 hover:opacity-100 self-start rounded hover:font-semibold'
+                >
+                  Apply
+                </button>
+              )}
 
               {checked && (
                 <label

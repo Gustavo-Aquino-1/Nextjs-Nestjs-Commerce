@@ -25,13 +25,30 @@ interface ProductsProps {
 }
 
 async function Products({ title, productId, filters }: ProductsProps) {
-  let filtersStr = Object.keys(filters)
-    .map((e) => `${e}=${filters[e]}&`)
-    .join('')
-  filtersStr = filtersStr.slice(0, filtersStr.length - 1)
-  let { data } = (await api.get(`/product?${filtersStr}`)) as any[]
+  // let filtersStr = Object.keys(filters || {})
+  //   .map((e) => `${e}=${filters[e]}&`)
+  //   .join('')
+  // filtersStr = filtersStr.slice(0, filtersStr.length - 1)
+  // let { data } = (await api.get(`/product?${filtersStr}`)) as any
+  // if (productId) {
+  //   data = data.filter((e: any) => e.id != productId)
+  // }
+
+  let finalStr = ''
+  if (filters && Object.keys(filters).length > 0) {
+    let filtersStr = Object.keys(filters) as [
+      'take',
+      'line',
+      'minPrice',
+      'maxPrice',
+      'type',
+    ]
+    filtersStr = filtersStr.map((e) => `${e}=${filters[e]}&`).join('') as any
+    finalStr = filtersStr.slice(0, filtersStr.length - 1) as any
+  }
+  let { data } = (await api.get(`/product?${finalStr}`)) as any
   if (productId) {
-    data = data.filter((e) => e.id != productId)
+    data = data.filter((e: any) => e.id != productId)
   }
 
   return (

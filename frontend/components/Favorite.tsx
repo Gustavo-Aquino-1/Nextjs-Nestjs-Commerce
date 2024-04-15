@@ -54,12 +54,11 @@ function Favorite({ token, productId }: FavoriteProps) {
   return (
     <>
       {!loading && (
-        <span className='text-slate-700 cursor-pointer' onClick={handleClick}>
+        <span className='text-slate-700 cursor-pointer hover:text-slate-500' onClick={handleClick}>
           {isFavorite ? (
             <FaHeart size={30} />
           ) : (
             <FaRegHeart
-              className='hover:text-slate-700 text-black'
               size={30}
             />
           )}

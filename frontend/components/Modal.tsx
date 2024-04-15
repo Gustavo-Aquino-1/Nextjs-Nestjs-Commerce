@@ -3,12 +3,18 @@
 import { useEffect, useState } from 'react'
 import { FaCheckCircle } from 'react-icons/fa'
 
-function Modal({ modalOpen, setModalOpen, message }) {
+interface ModalProps {
+  modalOpen: boolean
+  setModalOpen: any 
+  message: string
+}
+
+function Modal({ modalOpen, setModalOpen, message }: ModalProps) {
   useEffect(() => {
     if (modalOpen) {
       setTimeout(() => {
         setModalOpen(false)
-      }, [3000])
+      }, 3000)
     }
   }, [modalOpen])
 

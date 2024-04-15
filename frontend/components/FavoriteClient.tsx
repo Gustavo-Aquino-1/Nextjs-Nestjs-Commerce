@@ -16,7 +16,7 @@ const openSans = Open_Sans({
 })
 
 function FavoritesClient({ user }: FavoritesProps) {
-  const [favorites, setFavorites] = useState([])
+  const [favorites, setFavorites] = useState<any>([])
   const [finished, setFinished] = useState(false)
 
   useEffect(() => {

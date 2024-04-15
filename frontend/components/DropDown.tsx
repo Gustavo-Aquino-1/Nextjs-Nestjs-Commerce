@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
-
 interface DropDownProps {
   setName: any
   focus: boolean

@@ -1,7 +1,7 @@
 'use client'
 
 import Products from '@/components/Products'
-import { useContext, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import api from '../api'
 import { Open_Sans } from 'next/font/google'
 import { CiHeart } from 'react-icons/ci'
@@ -28,7 +28,7 @@ function Search() {
   const [focus, setFocus] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
-  const filterProducts = async (e) => {
+  const filterProducts = async (e: FormEvent) => {
     setSubmitted(true)
     e.preventDefault()
     if ((minPrice || 0) > (!maxPrice ? 500000 : maxPrice))
@@ -47,7 +47,7 @@ function Search() {
 
   return (
     <div
-      onClick={(e) =>
+      onClick={(e: any) =>
         !String(e.target.className).includes('dropdown') && setFocus(false)
       }
       className='pt-20 mb-20 max-w-[80%] m-auto min-h-full flex flex-col gap-10'

@@ -20,7 +20,7 @@ function ConfirmationModal({
   cep,
   setCep,
 }: ConfirmationModalProps) {
-  const [address, setAddress] = useState({})
+  const [address, setAddress] = useState<any>({})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
