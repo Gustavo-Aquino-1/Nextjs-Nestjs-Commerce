@@ -20,4 +20,9 @@ export class AuthController {
       throw new ConflictException({ message: 'email already taken' });
     }
   }
+
+  @Post('/refresh')
+  async refresh(@Body() data: { refresh: string }) {
+    return await this.authService.refresh(data.refresh);
+  }
 }

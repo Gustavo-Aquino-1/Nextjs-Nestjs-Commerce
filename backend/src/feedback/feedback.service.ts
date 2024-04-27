@@ -19,4 +19,13 @@ export default class FeedbackService {
     });
     return res.length > 0 ? { message: 'rated' } : { message: 'not rated' };
   }
+
+  async getRates(productId: number, skip: number) {
+    return await prisma.feedback.findMany({
+      where: { productId },
+      include: { user: { select: { name: true } } },
+      skip,
+      take: 5,
+    });
+  }
 }

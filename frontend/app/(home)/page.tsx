@@ -1,11 +1,11 @@
 import Products from '@/components/Products'
 import classes from './home.module.css'
 import SportDivisor from '@/components/SportDivisor'
+import UseAxiosAuth from '@/hooks/useAxiosAuth'
 
 export default async function Home() {
   return (
     <div className='flex flex-col pb-20'>
-      {/* <SmallAlerts /> */}
       <div
         className={`bg-black p-4 min-h-[45rem] flex flex-col justify-center items-center ${classes.sale} max-[1150px]:h-[30rem] max-md:h-[800px] max-sm:h-[500px]`}
       ></div>

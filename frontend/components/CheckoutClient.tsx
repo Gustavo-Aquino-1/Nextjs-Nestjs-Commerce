@@ -16,14 +16,19 @@ import { useSession } from 'next-auth/react'
 function CheckoutClient({ user }: { user: any }) {
   const [modalOpen, setModalOpen] = useState(false)
   const [checked, setChecked] = useState(false)
-  const { total, cart, setCart, setTotal } = useContext(Context) as any
+  const { total, cart, setCart, setTotal, buyNow, setBuyNow } = useContext(
+    Context,
+  ) as any
   const [cep, setCep] = useState('')
   const [number, setNumber] = useState('')
   const [loading, setLoading] = useState(false)
   const [finished, setFinished] = useState(false)
 
   useEffect(() => {
-    if (Object.keys(cart).length == 0) {
+    if (
+      Object.keys(cart).length == 0 &&
+      Object.keys(buyNow || {}).length == 0
+    ) {
       redirect('/cart')
     }
   }, [])
@@ -46,15 +51,22 @@ function CheckoutClient({ user }: { user: any }) {
           number: +number,
           paymentType: 'pix',
           total,
-          products: Object.keys(cart).map((e) => ({
-            productId: cart[e].id,
-            size: cart[e].size,
-            quantity: cart[e].quantity,
-          })),
+          products: Object.keys(buyNow || {}).length > 0
+            ? [{
+                productId: buyNow.id,
+                size: buyNow.size,
+                quantity: buyNow.quantity,
+              }]
+            : Object.keys(cart).map((e) => ({
+                productId: cart[e].id,
+                size: cart[e].size,
+                quantity: cart[e].quantity,
+              })),
         },
         { headers: { Authorization: user.acess_token } },
       )
-      setCart({})
+      if(Object.keys(buyNow || {}).length > 0) setBuyNow({})
+      else setCart({})
       setTotal(0)
       setFinished(true)
     } catch (error) {
@@ -92,10 +104,10 @@ function CheckoutClient({ user }: { user: any }) {
               modalOpen && 'blur-lg'
             }`}
           >
-            <div className='flex flex-col gap-5'>
+            <div className='flex flex-col gap-5 max-md:w-[70%]'>
               <h1 className='text-2xl font-semibold'>Find me</h1>
               <label
-                className='flex flex-col gap-3 justify-between max-w-[20%]'
+                className='flex flex-col gap-3 justify-between max-w-[20%] max-md:max-w-[100%]'
                 htmlFor='cep'
               >
                 <span className='font-bold flex items-end text-xl'>Cep</span>
@@ -104,7 +116,7 @@ function CheckoutClient({ user }: { user: any }) {
                   onChange={(e) => setCep(e.target.value)}
                   type='text'
                   id='cep'
-                  className='border border-black py-3 px-2'
+                  className='border border-black py-3 px-2 w-full'
                 />
               </label>
               {!checked && (
@@ -119,7 +131,7 @@ function CheckoutClient({ user }: { user: any }) {
               {checked && (
                 <label
                   htmlFor='number'
-                  className='flex flex-col gap-3 justify-between max-w-[20%]'
+                  className='flex flex-col gap-3 justify-between max-w-[20%] max-md:max-w-[100%]'
                 >
                   <span className='font-bold flex items-end text-xl'>
                     Number

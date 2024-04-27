@@ -3,6 +3,7 @@ import {
   ConflictException,
   Controller,
   Get,
+  Param,
   Post,
   Req,
   UseGuards,
@@ -34,5 +35,11 @@ export default class FeedbackController {
   async isRated(@Req() req: Request) {
     const user = decodeJwt(req) as any;
     return this.service.isRated(user.id, +req.params.id);
+  }
+
+  @Get('/rates/:id')
+  async getRates(@Param('id') id: number, @Req() req: Request) {
+    const { skip } = req.query;
+    return this.service.getRates(+id, Number(skip) || 0);
   }
 }

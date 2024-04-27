@@ -8,7 +8,7 @@ import { useContext, useEffect } from 'react'
 import { Context } from '@/context/Provider'
 
 export default function Header() {
-  const { cart } = useContext(Context) as any
+  const { cart, setBuyNowMode } = useContext(Context) as any
 
   return (
     <header className='flex justify-between w-full p-[1rem] py-[1.3rem] fixed top-0 lg:bg-[#141414]md:bg-[#141414]  bg-slate-800 text-white z-50'>
@@ -19,7 +19,9 @@ export default function Header() {
         <Link href='/search'>
           <CiSearch size={'2rem'} />
         </Link>
-        <CartIcon cart={cart} />
+        <Link onClick={() => setBuyNowMode(false)} href='/cart'>
+          <CartIcon cart={cart} />
+        </Link>
         <Link href='/account'>
           <FaUser size={'1.8rem'} />
         </Link>

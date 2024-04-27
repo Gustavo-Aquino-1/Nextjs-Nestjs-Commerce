@@ -8,7 +8,7 @@ const inter = Inter({
 function SportDivisor() {
   return (
     <div
-      className={`bg-slate-800 text-white p-3 overflow-x-hidden flex gap-4 w-full font-bold ${inter.className}`}
+      className={`bg-slate-800 text-white p-3 overflow-x-hidden flex gap-4 w-full font-bold ${inter.className} max-md:text-[base]`}
     >
       <span>SPORT ZONE</span>
       <span>SPORT ZONE</span>

@@ -10,6 +10,8 @@ export default function Provider({ children }: PropsWithChildren) {
   const [cart, setCart] = useLocalStorage('cart', {})
   const [total, setTotal] = useLocalStorage('total', 0)
   const [orderDetails, setOrderDetails] = useLocalStorage('orderDetails', {})
+  const [buyNow, setBuyNow] = useLocalStorage('buyNow', {})
+  const [buyNowMode, setBuyNowMode] = useLocalStorage('buyNowMode', false)
 
   const addToCart = (product: any, size: string) => {
     const key = `${product.id}${size}`
@@ -44,9 +46,26 @@ export default function Provider({ children }: PropsWithChildren) {
       setTotal,
       setCart,
       orderDetails,
-      setOrderDetails
+      setOrderDetails,
+      buyNow,
+      setBuyNow,
+      buyNowMode,
+      setBuyNowMode,
     }),
-    [cart, addToCart, removeFromCart, total, setTotal, setCart, orderDetails, setOrderDetails],
+    [
+      cart,
+      addToCart,
+      removeFromCart,
+      total,
+      setTotal,
+      setCart,
+      orderDetails,
+      setOrderDetails,
+      buyNow,
+      setBuyNow,
+      buyNowMode,
+      setBuyNowMode,
+    ],
   )
   return <Context.Provider value={contextValue}>{children}</Context.Provider>
 }

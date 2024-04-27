@@ -66,9 +66,9 @@ function Search() {
                 <p>Min Price</p>
                 <input
                   className='border-2 border-gray-300 p-2 outline-slate-600 max-md:w-[100%]'
-                  type='number'
+                  type='text'
                   value={minPrice}
-                  onChange={(e) => setMinPrice(+e.target.value)}
+                  onChange={(e) => setMinPrice(+e.target.value || 0)}
                 />
               </label>
 
@@ -76,9 +76,9 @@ function Search() {
                 <p>Max Price</p>
                 <input
                   className='border-2 border-gray-300 p-2  outline-slate-600 max-md:w-[100%]'
-                  type='number'
+                  type='text'
                   value={maxPrice}
-                  onChange={(e) => setMaxPrice(+e.target.value)}
+                  onChange={(e) => setMaxPrice(+e.target.value || 0)}
                 />
               </label>
 

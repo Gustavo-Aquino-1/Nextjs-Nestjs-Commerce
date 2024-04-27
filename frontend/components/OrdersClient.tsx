@@ -3,12 +3,12 @@
 import { useContext, useEffect, useState } from 'react'
 import api from '@/app/api'
 import Link from 'next/link'
-import { Roboto } from 'next/font/google'
 import { Context } from '@/context/Provider'
+import { Quicksand } from 'next/font/google'
 
-const ordersTitleFont = Roboto({
+const quickFont = Quicksand({
+  weight: ['500', '600', '700'],
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
 })
 
 interface OrdersProps {
@@ -37,12 +37,16 @@ function OrdersClient({ user }: OrdersProps) {
 
   return (
     <div className='p-10 text-xl flex flex-col gap-10 items-center'>
-      <h1 className={`text-2xl ${ordersTitleFont.className}`}>MY ORDERS</h1>
+      <h1 className={`text-3xl ${quickFont.className}`}>My Orders</h1>
       {orders.length == 0 ? (
         <h1>You don&apos;t have orders yet</h1>
       ) : (
         <>
-          <div className='grid grid-cols-2 gap-8 gap-y-10 max-w-[80%] max-md:grid-cols-1'>
+          <div
+            className={`grid ${
+              orders.length >= 2 ? 'grid-cols-2' : 'grid-cols-1'
+            } gap-8 gap-y-10 max-w-[80%] max-md:grid-cols-1`}
+          >
             {orders.map((e: any) => (
               <div
                 className='border-2 self-start p-5 rounded border-gray-300 bg-gray-100 hover:scale-105'

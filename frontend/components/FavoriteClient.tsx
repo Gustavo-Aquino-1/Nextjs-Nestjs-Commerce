@@ -5,6 +5,12 @@ import api from '@/app/api'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { Quicksand } from 'next/font/google'
+
+const quickFont = Quicksand({
+  weight: ['500', '600', '700'],
+  subsets: ['latin'],
+})
 
 interface FavoritesProps {
   user: any
@@ -38,8 +44,8 @@ function FavoritesClient({ user }: FavoritesProps) {
   }
 
   return (
-    <div className='min-h-[20rem] mt-20 mb-40 p-4 pl-10 flex flex-col gap-10'>
-      <h1 className='text-2xl max-md:text-center'>My Favorites</h1>
+    <div className='min-h-[20rem] mt-20 mb-40 p-4 pl-10 flex flex-col gap-10 max-md:p-0 max-md:pt-10'>
+      <h1 className={`text-3xl max-md:text-center ${quickFont.className} text-slate-700`}>My Favorites</h1>
       <div
         className={`flex flex-wrap gap-[4rem] max-md:flex-col max-md:justify-center max-md:gap-10`}
       >

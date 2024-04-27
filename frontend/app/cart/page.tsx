@@ -9,8 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
-import { FaTrashAlt } from "react-icons/fa";
-
+import { FaTrashAlt } from 'react-icons/fa'
 
 function Cart() {
   const {
@@ -18,6 +17,9 @@ function Cart() {
     addToCart,
     removeFromCart,
     setTotal: setGlobalTotal,
+    buyNow,
+    setBuyNow,
+    buyNowMode
   } = useContext(Context) as any
   const [inputVisible, setInputVisible] = useState(false)
   const [promoCode, setPromoCode] = useState(false)
@@ -27,24 +29,36 @@ function Cart() {
   const router = useRouter()
 
   useEffect(() => {
-    let quantity = 0
-    setTotal(
-      +Number(
-        Object.keys(cart).reduce((a, c) => {
-          quantity += cart[c].quantity
-          return (a += cart[c].quantity * cart[c].price)
-        }, 0),
-      ).toFixed(2),
-    )
-    setProductQuantity(quantity)
-  }, [cart])
+    if (buyNowMode) {
+      setProductQuantity(buyNow.quantity)
+      setTotal(buyNow.price * buyNow.quantity)
+    } else {
+      let quantity = 0
+      setTotal(
+        +Number(
+          Object.keys(cart).reduce((a, c) => {
+            quantity += cart[c].quantity
+            return (a += cart[c].quantity * cart[c].price)
+          }, 0),
+        ).toFixed(2),
+      )
+      setProductQuantity(quantity)
+    }
+  }, [cart, buyNow])
 
   return (
     <div className=''>
-      {Object.keys(cart).length == 0 ? (
+      {Object.keys(cart).length == 0 && !buyNowMode ? (
         <div className='flex flex-col justify-center mt-32 gap-4'>
-          <h1 className='text-center text-2xl font-bold'>You don&apos;t have products in your cart!</h1>
-          <Link className='text-center text-lg text-blue-600 underline' href="/search">Search Products Here</Link>
+          <h1 className='text-center text-2xl font-bold'>
+            You don&apos;t have products in your cart!
+          </h1>
+          <Link
+            className='text-center text-lg text-blue-600 underline'
+            href='/search'
+          >
+            Search Products Here
+          </Link>
         </div>
       ) : (
         <>
@@ -53,42 +67,94 @@ function Cart() {
             setModalOpen={setModalOpen}
             message='Promo code in use!'
           />
-          <div className='flex justify-center m-auto max-w-[90%] gap-20 mt-32 max-[1050px]:flex-col mb-20'>
-            <div className='w-[40%] max-md:w-[100%] flex flex-col gap-5'>
-              <h1 className='text-2xl font-semibold'>Your cart</h1>
-              {Object.keys(cart).map((e: any) => (
-                <div className='flex gap-10 text-lg' key={e}>
-                  <Image
-                    src={cart[e].img}
-                    width={300}
-                    height={300}
-                    alt={cart[e].name}
-                  />
-                  <div className='flex flex-col justify-center gap-5'>
-                    <p className='text-lg font-bold'>{cart[e].name}</p>
-                    <p className='text-lg font'>
-                      <strong>Size:</strong> {cart[e].size}
-                    </p>
-                    <p>{`R$ ${cart[e].price}`}</p>
-                    <div className='flex gap-5'>
-                      <button
-                        onClick={() => removeFromCart(cart[e], cart[e].size)}
-                        className='border-2 border-gray-300 px-2'
-                      >
-                        -
-                      </button>
-                      <p>{cart[e].quantity}</p>
-                      <button
-                        onClick={() => addToCart(cart[e], cart[e].size)}
-                        className='border-2 border-gray-300 px-2'
-                      >
-                        +
-                      </button>
-                    </div>
+          <div className='flex justify-center m-auto max-w-[90%] gap-20 mt-32 max-[1050px]:flex-col mb-20 max-md:mt-10'>
+            {buyNowMode ? (
+              <div
+                className='flex gap-10 text-lg max-md:flex-col max-md:items-center'
+                key={buyNow}
+              >
+                <Image
+                  src={buyNow.img}
+                  width={300}
+                  height={300}
+                  alt={buyNow.name}
+                />
+                <div className='flex flex-col justify-center gap-5'>
+                  <p title={buyNow.name} className='text-lg font-bold'>
+                    {buyNow.name}
+                  </p>
+                  <p className='text-lg font'>
+                    <strong>Size:</strong> {buyNow.size}
+                  </p>
+                  <p>{`R$ ${buyNow.price}`}</p>
+                  <div className='flex gap-5'>
+                    <button
+                      onClick={() => {
+                        if(buyNow.quantity <= 1) {
+                          setBuyNow({})
+                          return
+                        }
+                        setBuyNow({ ...buyNow, quantity: buyNow.quantity - 1 })
+                      }}
+                      className='border-2 border-gray-300 px-2'
+                    >
+                      -
+                    </button>
+                    <p>{buyNow.quantity}</p>
+                    <button
+                      onClick={() =>
+                        setBuyNow({ ...buyNow, quantity: buyNow.quantity + 1 })
+                      }
+                      className='border-2 border-gray-300 px-2'
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ) : (
+              <div className='w-[40%] max-md:w-[100%] flex flex-col gap-5 max-md:items-center'>
+                <h1 className='text-2xl font-semibold'>Your cart</h1>
+                {Object.keys(cart).map((e: any) => (
+                  <div
+                    className='flex gap-10 text-lg max-md:flex-col max-md:items-center'
+                    key={e}
+                  >
+                    <Image
+                      src={cart[e].img}
+                      width={300}
+                      height={300}
+                      alt={cart[e].name}
+                    />
+                    <div className='flex flex-col justify-center gap-5'>
+                      <p title={cart[e].name} className='text-lg font-bold'>
+                        {cart[e].name}
+                      </p>
+                      <p className='text-lg font'>
+                        <strong>Size:</strong> {cart[e].size}
+                      </p>
+                      <p>{`R$ ${cart[e].price}`}</p>
+                      <div className='flex gap-5'>
+                        <button
+                          onClick={() => removeFromCart(cart[e], cart[e].size)}
+                          className='border-2 border-gray-300 px-2'
+                        >
+                          -
+                        </button>
+                        <p>{cart[e].quantity}</p>
+                        <button
+                          onClick={() => addToCart(cart[e], cart[e].size)}
+                          className='border-2 border-gray-300 px-2'
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className='flex flex-col gap-5 text-lg w-[25%] max-md:w-[100%]'>
               <h1 className='text-2xl font-bold'>Summary</h1>
               <div className='flex justify-between'>
@@ -130,7 +196,7 @@ function Cart() {
                       className='flex justify-between gap-5 max-w-[100%]'
                     >
                       <input
-                        className='border-2 border-gray-400 rounded-md w-[90%]'
+                        className='border-2 border-gray-400 rounded-md w-[90%] outline-slate-500 px-2'
                         type='text'
                         minLength={8}
                         required

@@ -71,7 +71,7 @@ async function Products({ title, productId, filters }: ProductsProps) {
           >
             <Link className='z-0 scale-100' href={`/product/${e.id}`}>
               <Image
-                className='lg:rounded-t-md min-w-[400px]'
+                className='lg:rounded-t-md min-w-[400px] max-md:min-w-[300px]'
                 src={e.img}
                 width={300}
                 height={300}
