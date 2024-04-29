@@ -9,7 +9,7 @@ import prisma from 'src/prisma';
 @Injectable()
 export default class ProductService {
   async get(filters) {
-    const { name, minPrice, maxPrice, type, line, take } = filters;
+    const { name, minPrice, maxPrice, type, line, take, notIn } = filters;
     const filter = {
       where: {
         name: {
@@ -18,6 +18,11 @@ export default class ProductService {
         price: {
           gte: +minPrice || 0,
           lte: +maxPrice || 500000,
+        },
+        NOT: {
+          id: {
+            in: JSON.parse(notIn || '[]'),
+          },
         },
       },
       take: +take || 5,

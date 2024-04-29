@@ -1,5 +1,6 @@
 'use client'
 
+import CartProducts from '@/components/CartProducts'
 import FormModal from '@/components/FormModal'
 import Modal from '@/components/Modal'
 import Products from '@/components/Products'
@@ -19,7 +20,7 @@ function Cart() {
     setTotal: setGlobalTotal,
     buyNow,
     setBuyNow,
-    buyNowMode
+    buyNowMode,
   } = useContext(Context) as any
   const [inputVisible, setInputVisible] = useState(false)
   const [promoCode, setPromoCode] = useState(false)
@@ -90,7 +91,7 @@ function Cart() {
                   <div className='flex gap-5'>
                     <button
                       onClick={() => {
-                        if(buyNow.quantity <= 1) {
+                        if (buyNow.quantity <= 1) {
                           setBuyNow({})
                           return
                         }
@@ -225,6 +226,8 @@ function Cart() {
           </div>
         </>
       )}
+
+      <CartProducts notIn={Object.keys(cart).map((e) => cart[e].id)} />
     </div>
   )
 }

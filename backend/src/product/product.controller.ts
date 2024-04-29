@@ -15,7 +15,6 @@ import ProductService from './product.service';
 import ProductDto from 'src/dto/product.dto';
 import IsAuthorized from 'src/guards/isAuthorized';
 import decodeJwt from 'src/utils/decodeJwt';
-import { JwtPayload } from 'jsonwebtoken';
 
 @Controller('/product')
 export default class ProductController {
@@ -24,7 +23,15 @@ export default class ProductController {
   @Get()
   async get(@Req() req: Request) {
     const filters = req.query;
-    const fields = ['name', 'minPrice', 'maxPrice', 'type', 'line', 'take'];
+    const fields = [
+      'name',
+      'minPrice',
+      'maxPrice',
+      'type',
+      'line',
+      'take',
+      'notIn',
+    ];
     Object.keys(filters).map(
       (e) =>
         String(filters[e]).trim() == '' ||
