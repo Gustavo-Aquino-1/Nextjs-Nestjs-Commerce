@@ -178,8 +178,8 @@ Atenção: Essa rota necessita de autenticação.
 
 
 interface OrderProduct { 
-    productId: number
-    private size: string
+    productId: number,
+    private size: string,
     private quantity: number
 }
 
