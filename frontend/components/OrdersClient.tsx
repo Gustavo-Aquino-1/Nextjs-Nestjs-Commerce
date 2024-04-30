@@ -70,13 +70,15 @@ function OrdersClient({ user }: OrdersProps) {
               </div>
             ))}
           </div>
-          <button
-            className='border-2 px-2  py-1 border-gray-700 bg-gray-600 text-white disabled:opacity-70 hover:bg-gray-800'
-            onClick={getOrders}
-            disabled={!viewMore}
-          >
-            View More
-          </button>
+          {viewMore && (
+            <button
+              className='border-2 px-2  py-1 border-gray-700 bg-gray-600 text-white disabled:opacity-70 hover:bg-gray-800'
+              onClick={getOrders}
+              disabled={!viewMore}
+            >
+              View More
+            </button>
+          )}
         </>
       )}
     </div>

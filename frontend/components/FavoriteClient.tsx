@@ -44,10 +44,14 @@ function FavoritesClient({ user }: FavoritesProps) {
   }
 
   return (
-    <div className='min-h-[20rem] mt-20 mb-40 p-4 pl-10 flex flex-col gap-10 max-md:p-0 max-md:pt-10'>
-      <h1 className={`text-3xl max-md:text-center ${quickFont.className} text-slate-700`}>My Favorites</h1>
+    <div className='min-h-[20rem] mt-5 mb-40 p-4 pl-10 flex flex-col gap-10 max-md:p-0 max-md:pt-10'>
+      <h1
+        className={`text-3xl max-md:text-center ${quickFont.className} text-slate-700`}
+      >
+        My Favorites
+      </h1>
       <div
-        className={`flex flex-wrap gap-[4rem] max-md:flex-col max-md:justify-center max-md:gap-10`}
+        className={`flex flex-wrap gap-[10rem] max-md:flex-col max-md:justify-center max-md:gap-10`}
       >
         {favorites.map((e: any) => (
           <div
@@ -79,13 +83,15 @@ function FavoritesClient({ user }: FavoritesProps) {
           </div>
         ))}
       </div>
-      <button
-        className='border-2 px-2 self-center py-1 border-gray-700 bg-gray-600 text-white disabled:opacity-70 hover:bg-gray-800'
-        onClick={getFavorites}
-        disabled={finished}
-      >
-        View More
-      </button>
+      {!finished && (
+        <button
+          className='border-2 px-2 self-start py-1 border-gray-700 bg-gray-600 text-white disabled:opacity-70 hover:bg-gray-800'
+          onClick={getFavorites}
+          disabled={finished}
+        >
+          View More
+        </button>
+      )}
     </div>
   )
 }

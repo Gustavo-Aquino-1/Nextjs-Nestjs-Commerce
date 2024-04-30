@@ -44,7 +44,7 @@ export default function ProductOptions({ product }: ProductProps) {
             <div className='flex gap-2 max-w-full overflow-x-scroll scrollbar-thin py-5'>
               {product?.size.sizes.split(' ').map((sizeOption: string) => (
                 <button
-                  className={`p-3 border-2 border-solid border-gray hover:border-black active:bg-black active:text-white ${
+                  className={`p-3 border-2 border-solid border-gray-300 hover:border-black active:bg-black active:text-white ${
                     sizeOption == size && 'bg-emerald-800 text-white'
                   }`}
                   key={sizeOption}

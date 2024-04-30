@@ -1,74 +1,65 @@
 'use client'
 
-import React, { useContext, useState } from 'react'
-import Link from 'next/link'
-import { signOut } from 'next-auth/react'
-import { RiFileListLine } from 'react-icons/ri'
-import { MdFavorite } from 'react-icons/md'
-import { MdOutlinePersonOutline } from 'react-icons/md'
-import favoritesImage from '@/public/favorites.png'
-import ordersImage from '@/public/orders.png'
-import Image from 'next/image'
-import { Quicksand } from 'next/font/google'
-import { Context } from '@/context/Provider'
+import { IoIosListBox } from 'react-icons/io'
+import { FaHeart } from 'react-icons/fa'
+import { IoMdSettings } from 'react-icons/io'
+import { useEffect, useState } from 'react'
+import OrdersClient from '@/components/OrdersClient'
+import { useSession } from 'next-auth/react'
+import FavoritesClient from '@/components/FavoriteClient'
 
-const quickFont = Quicksand({
-  weight: ['500', '600', '700'],
-  subsets: ['latin'],
-})
+function Account() {
+  const { data: session } = useSession()
+  const [page, setPage] = useState('orders')
+  const [map, setMap] = useState<any>({})
+  useEffect(() => {
+    if(session?.user.id) {
+      setMap({
+        orders: <OrdersClient user={session?.user} />,
+        favorites: <FavoritesClient user={session?.user} />,
+      })
+    }
+  }, [session])
 
-function MyAccount() {
-  const [accountOptions, setAccountOptions] = useState(false)
-  const { setCart } = useContext(Context) as any
   return (
-    <div className='p-10 flex flex-col gap-10'>
-      <h1
-        className={`text-3xl text-slate-800 font-semibold ${quickFont.className}`}
-      >
-        My Account
-      </h1>
-      <ul className='flex text-2xl gap-20 flex-wrap'>
-        <li className='border-4 border-gray-700 rounded-lg hover:scale-105'>
-          <Link
-            className='hover:text-slate-600 flex items-center gap-2'
-            href='/orders'
-          >
-            <Image
-              className=''
-              src={ordersImage}
-              width={480}
-              height={500}
-              alt='orders'
-            />
-          </Link>
-        </li>
-        <li>
-          <Link
-            className='hover:text-slate-600 flex items-center gap-2 rounded-lg hover:scale-105 border-4 border-gray-700'
-            href='/favorites'
-          >
-            <Image
-              className=''
-              src={favoritesImage}
-              width={480}
-              height={500}
-              alt='favorites'
-            />
-          </Link>
-        </li>
-      </ul>
-      <button
-        onClick={async () => {
-          setCart({})
-          await signOut()
-        } 
-      }
-        className={`text-3xl text-slate-800 font-semibold ${quickFont.className} self-start bg-[#f6f6f6] rounded border border-gray-500 px-2 p-1 hover:bg-green-600 hover:text-white hover:border-transparent mt-5`}
-      >
-        Logout
-      </button>
-    </div>
+    session?.user.id && (
+      <div className='flex'>
+        <nav className='flex-start bg-gray-200 border-r-2 border-gray-300 p-2 px-10 min-h-screen relative'>
+          <ul className='flex flex-col gap-10 mt-5 fixed left-6'>
+            <li
+              title='Settings'
+              onClick={() => setPage('settings')}
+              className='cursor-pointer'
+            >
+              <IoMdSettings size={30} />
+            </li>
+            <li
+              title='Orders'
+              onClick={() => setPage('orders')}
+              className='cursor-pointer'
+            >
+              <IoIosListBox size={30} />
+            </li>
+            <li
+              title='Favorites'
+              onClick={() => setPage('favorites')}
+              className='cursor-pointer'
+            >
+              <FaHeart size={30} />
+            </li>
+          </ul>
+        </nav>
+        <div className='flex-grow p-2'>
+          {page != 'settings' ? (map[page]) : (
+            <div className='p-5 flex flex-col gap-5 items-start'>
+              <p className='text-xl'>{session.user.name}</p>
+              <button className='bg-blue-600 text-white font-semibold px-2 p-1 rounded'>change my password</button>
+            </div>
+          )}
+        </div>
+      </div>
+    )
   )
 }
 
-export default MyAccount
+export default Account
