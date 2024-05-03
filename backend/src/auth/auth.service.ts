@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -66,5 +67,22 @@ export class AuthService {
     } catch (error) {
       throw new UnauthorizedException({ message: error.message });
     }
+  }
+
+  async newPassword(id: string, password: string, pastPassword: string) {
+    const user = await prisma.user.findFirst({
+      where: { id },
+    });
+
+    if (pastPassword != user.password) {
+      throw new BadRequestException({ message: 'Wrong past password' });
+    }
+
+    await prisma.user.update({
+      where: { id },
+      data: {
+        password,
+      },
+    });
   }
 }
