@@ -41,7 +41,7 @@ function OrderClient({ user }: OrderProps) {
             .split('-')
             .reverse()
             .join('/')}</span></p>
-          <p><strong>Total: </strong>{orderDetails.total}</p>
+          <p><strong>Total: </strong>R$ {orderDetails.total}</p>
           <p><strong>Delivered In: </strong> {`Cep ${orderDetails.cep} at number: ${orderDetails.number}`}</p>
         </div>
         <h1 className='text-2xl font-semibold'>Products</h1>

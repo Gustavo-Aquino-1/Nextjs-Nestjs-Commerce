@@ -10,6 +10,10 @@ import FavoritesClient from '@/components/FavoriteClient'
 import api from '@/app/api'
 import { useRouter } from 'next/navigation'
 import { Context } from '@/context/Provider'
+import { MdEmail } from "react-icons/md";
+import { FaRegUserCircle } from "react-icons/fa";
+
+
 
 function Account() {
   const { setCart } = useContext(Context) as any
@@ -20,13 +24,22 @@ function Account() {
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [pastPassword, setPastPassword] = useState('')
+  const [user, setUser] = useState<any>({})
   const router = useRouter()
   useEffect(() => {
+    async function getUser() {
+      const { data } = await api.get('/auth/user', {
+        headers: { Authorization: session?.user.acess_token}
+      })
+      console.log(data)
+      setUser(data)
+    }
     if (session?.user.id) {
       setMap({
         orders: <OrdersClient user={session?.user} />,
         favorites: <FavoritesClient user={session?.user} />,
       })
+      getUser()
     }
   }, [session])
 
@@ -85,7 +98,8 @@ function Account() {
             map[page]
           ) : (
             <div className='p-5 flex flex-col gap-5 items-start'>
-              <p className='text-2xl font-light'>{session.user.name}</p>
+              <p className='text-2xl font-light flex items-center gap-2'><FaRegUserCircle /> {session.user.name}</p>
+              <p className='text-2xl font-light flex items-center gap-2'><MdEmail/>  {user?.email}</p>
               <button
                 onClick={() => setChangingPassword(!changingPassword)}
                 className='bg-blue-600 text-white font-semibold px-2 p-1 rounded'
