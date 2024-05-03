@@ -2,6 +2,7 @@ import {
   Body,
   ConflictException,
   Controller,
+  Get,
   Post,
   Req,
   UseGuards,
@@ -10,8 +11,8 @@ import { AuthService } from './auth.service';
 import UserDto from 'src/dto/user.dto';
 import CreateUserDto from 'src/dto/create-user.dto';
 import IsAuthorized from 'src/guards/isAuthorized';
-import decodeJwt from 'src/utils/decodeJwt';
 import { Request } from 'express';
+import decodeJwt from 'src/utils/decodeJwt';
 
 @Controller('/auth')
 export class AuthController {
@@ -29,6 +30,13 @@ export class AuthController {
     } catch (error) {
       throw new ConflictException({ message: 'email already taken' });
     }
+  }
+
+  @Get('/user')
+  @UseGuards(new IsAuthorized())
+  async getUser(@Req() req: Request) {
+    const { id } = decodeJwt(req) as any;
+    return this.authService.getUser(id);
   }
 
   @Post('/refresh')

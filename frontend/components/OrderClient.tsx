@@ -34,27 +34,28 @@ function OrderClient({ user }: OrderProps) {
 
   return (
     <>
-      <div className={`p-10 flex flex-col gap-10 ${modalOpen ? 'blur' : ''}`}>
+      <div className={`pl-10 pt-10 flex flex-col gap-10 ${modalOpen ? 'blur' : ''}`}>
         <div className='text-xl' key={orderDetails.id}>
-          <p>{`Total: R$ ${orderDetails.total}`}</p>
-          <p>{`Date: ${orderDetails.saleDate
+          <p className='text-2xl font-semibold mb-1'>Sale made at <span className='text-slate-600'>{orderDetails.saleDate
             .split('T')[0]
             .split('-')
             .reverse()
-            .join('/')}`}</p>
-          <p>{`Delivered To: ${orderDetails.cep} at number: ${orderDetails.number}`}</p>
+            .join('/')}</span></p>
+          <p><strong>Total: </strong>{orderDetails.total}</p>
+          <p><strong>Delivered In: </strong> {`Cep ${orderDetails.cep} at number: ${orderDetails.number}`}</p>
         </div>
-        <h1 className='text-2xl'>Products</h1>
+        <h1 className='text-2xl font-semibold'>Products</h1>
         <div
-          className={`flex flex-wrap gap-[4rem] max-md:flex-col max-md:justify-center max-md:gap-10`}
+          className={`flex gap-10 overflow-x-scroll pb-5 scrollbar-thin pr-10`}
         >
           {products.map((e: any) => (
             <div
               key={String(e.product.id) + e.size}
-              className='flex flex-col items-center justify-center gap-2'
+              className='flex flex-col items-start justify-start gap-2 border-4 min-w-[300px] max-w-[300px]'
             >
               <Link className='z-0' href={`/product/${e.product.id}`}>
                 <Image
+                  className='max-h-[300px]'
                   src={e.product.img}
                   width={300}
                   height={300}
@@ -63,18 +64,18 @@ function OrderClient({ user }: OrderProps) {
               </Link>
               <Link
                 href={`/product/${e.product.id}`}
-                className={`font-semibold hover:text-emerald-600 hover:underline text-lg text-gray-600`}
+                className={`font-semibold hover:text-slate-700 hover:underline text-lg text-black pl-4`}
               >
                 {e.product.name}
               </Link>
-              <div className='pb-4'>
-                <p className={`z-0 text-lg`}>{`R$ ${e.product.price}`}</p>{' '}
+              <div className='pb-4 pl-4 flex flex-col min-w-[300px] max-w-[300px]'>
+                <p className={`z-0 text-lg`}> <strong>Price:</strong> {`R$ ${e.product.price}`}</p>{' '}
                 {/* price of the product when it was sale */}
-                <p className='text-lg'>{`Size: ${e.size}`}</p>
-                <p className='text-lg'>{`Quantity: ${e.quantity}`}</p>
+                <p className='text-lg'><strong>Size:</strong> {e.size}</p>
+                <p className='text-lg'><strong>Quantity:</strong> {e.quantity}</p>
                 <button
                   onClick={() => rateProduct(e.product.id)}
-                  className='border-2 bg-black text-white px-5 rounded hover:bg-gray-800'
+                  className='bg-blue-500 text-white px-8 rounded hover:bg-gray-800 self-end mr-5 font-semibold py-1'
                 >
                   Rate
                 </button>

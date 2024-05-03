@@ -3,18 +3,20 @@
 import { IoIosListBox } from 'react-icons/io'
 import { FaHeart } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 import OrdersClient from '@/components/OrdersClient'
 import { signOut, useSession } from 'next-auth/react'
 import FavoritesClient from '@/components/FavoriteClient'
 import api from '@/app/api'
 import { useRouter } from 'next/navigation'
+import { Context } from '@/context/Provider'
 
 function Account() {
+  const { setCart } = useContext(Context) as any
   const { data: session } = useSession()
   const [page, setPage] = useState('orders')
   const [map, setMap] = useState<any>({})
-  const [changingPassword, setChangingPassword] = useState(true)
+  const [changingPassword, setChangingPassword] = useState(false)
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [pastPassword, setPastPassword] = useState('')
@@ -83,8 +85,11 @@ function Account() {
             map[page]
           ) : (
             <div className='p-5 flex flex-col gap-5 items-start'>
-              <p className='text-xl'>{session.user.name}</p>
-              <button className='bg-blue-600 text-white font-semibold px-2 p-1 rounded'>
+              <p className='text-2xl font-light'>{session.user.name}</p>
+              <button
+                onClick={() => setChangingPassword(!changingPassword)}
+                className='bg-blue-600 text-white font-semibold px-2 p-1 rounded'
+              >
                 change my password
               </button>
               {changingPassword ? (
@@ -137,7 +142,10 @@ function Account() {
                 </form>
               ) : (
                 <button
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    signOut()
+                    setCart({})
+                  }}
                   className='bg-blue-600 text-white font-semibold px-2 p-1 rounded'
                 >
                   logout

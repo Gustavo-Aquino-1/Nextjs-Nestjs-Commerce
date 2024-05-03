@@ -85,4 +85,10 @@ export class AuthService {
       },
     });
   }
+
+  async getUser(id: string) {
+    return await prisma.user.findFirst({
+      where: { id },
+    });
+  }
 }
