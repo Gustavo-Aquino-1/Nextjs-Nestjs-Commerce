@@ -1,7 +1,7 @@
 'use client'
 
 import Products from '@/components/Products'
-import { FormEvent, useContext, useState } from 'react'
+import { FormEvent, useContext, useEffect, useState } from 'react'
 import api from '../api'
 import { Open_Sans } from 'next/font/google'
 import { CiHeart } from 'react-icons/ci'
@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { Context } from '@/context/Provider'
 import { IoSearchOutline } from 'react-icons/io5'
 import DropDown from '@/components/DropDown'
+import ProductsLoading from '@/components/ProductsLoading'
 
 const openSans = Open_Sans({
   subsets: ['latin'],
@@ -27,10 +28,22 @@ function Search() {
   const [filteredData, setFilteredData] = useState([])
   const [focus, setFocus] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const filterProducts = async (e: FormEvent) => {
+  async function getProducts() {
+    await filterProducts()
+  }
+
+  useEffect(() => {
+    if (name.length > 1 && name.length % 3 == 0) {
+      getProducts()
+    }
+  }, [name])
+
+  const filterProducts = async (e?: FormEvent) => {
+    e?.preventDefault()
+    setLoading(true)
     setSubmitted(true)
-    e.preventDefault()
     if ((minPrice || 0) > (!maxPrice ? 500000 : maxPrice))
       return alert('The maxPrice should be greater than minPrice')
     try {
@@ -40,9 +53,12 @@ function Search() {
         }&line=${line || ''}&type=${type || ''}&take=10`,
       )
       setFilteredData(data)
+      setLoading(false)
     } catch (error) {
       alert('Error while fetching data')
+      setLoading(false)
     }
+    setLoading(false)
   }
 
   return (
@@ -157,7 +173,9 @@ function Search() {
         </form>
       </div>
 
-      {filteredData.length > 0 && (
+      {loading ? (
+        <ProductsLoading />
+      ) : (
         <div className='min-h-[20rem] mt-20 mb-40'>
           <div
             className={`flex flex-wrap gap-[4rem] max-md:flex-col max-md:justify-center max-md:gap-10`}

@@ -6,6 +6,7 @@ import { FaUser } from 'react-icons/fa'
 import CartIcon from './CartIcon'
 import { useContext, useEffect } from 'react'
 import { Context } from '@/context/Provider'
+import { GiHamburgerMenu } from 'react-icons/gi'
 
 export default function Header() {
   const { cart, setBuyNowMode } = useContext(Context) as any
@@ -15,7 +16,7 @@ export default function Header() {
       <Link href='/' className='text-pretty text-xl'>
         GAX
       </Link>
-      <div className='flex gap-4'>
+      <div className='flex gap-4 max-md:invisible'>
         <Link href='/search'>
           <CiSearch size={'2rem'} />
         </Link>
@@ -24,6 +25,11 @@ export default function Header() {
         </Link>
         <Link href='/account'>
           <FaUser size={'1.8rem'} />
+        </Link>
+      </div>
+      <div className='max-md:visible md:invisible'>
+        <Link href='/options'>
+          <GiHamburgerMenu size={30} />
         </Link>
       </div>
     </header>
