@@ -33,7 +33,7 @@ async function Product({ params: { id } }: ProductProps) {
         </p>
       </div>
       <ProductOptions product={product} />
-      <div className='flex flex-col gap-5 min-w-[70%] max-w-[70%] max-md:max-w-[90%] max-md:pl-4 m-auto'>
+      <div className='flex flex-col gap-5 min-w-[70%] max-w-[70%] max-md:max-w-[90%] max-md:min-w-[90%] max-md:pl-4  m-auto'>
         <p className='font-bold text-xl'>{`${product.name} Description`}</p>
         <p className='first-letter:capitalize'>{product.description}</p>
       </div>

@@ -24,9 +24,9 @@ function Avaliations({ productId }: AvaliationsProps) {
   }, [])
 
   return (
-    <div className='min-w-[70%] max-w-[70%] max-md:min-w-[90%] max-md:max-w-[90%] m-auto text-xl '>
+    <div className='min-w-[70%] max-w-[70%] max-md:min-w-[90%] max-md:max-w-[90%] m-auto text-xl pl-4'>
       <h1 className='font-bold text-xl'>What people think about this product ?</h1>
-      <div className='flex gap-5 overflow-x-auto max-md:overflow-x-scroll scrollbar-thin py-4'>
+      <div className='flex gap-5 overflow-x-auto:overflow-x-scroll scrollbar-thin py-4'>
         {avaliations.map((e: any) => (
           <div
             className='border border-gray-300 p-2 min-w-[250px] max-w-[250px] max-h-[120px] overflow-y-scroll scrollbar-thin border-r-4 border-l-4'
