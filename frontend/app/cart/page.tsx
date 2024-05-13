@@ -115,7 +115,7 @@ function Cart() {
               </div>
             ) : (
               <div className='w-[40%] max-md:w-[100%] flex flex-col gap-5 max-md:items-center'>
-                <h1 className='text-2xl font-semibold'>Your cart</h1>
+                <h1 className='text-2xl'>Your cart</h1>
                 {Object.keys(cart).map((e: any) => (
                   <div
                     className='flex gap-10 text-lg max-md:flex-col max-md:items-center'
